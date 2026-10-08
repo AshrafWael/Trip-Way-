@@ -1,0 +1,212 @@
+.admin-body {
+    background: #f4f6f9;
+    font-family: 'Tajawal', sans-serif;
+}
+
+.admin-shell {
+    display: flex;
+    min-height: 100vh;
+}
+
+.admin-sidebar {
+    width: 260px;
+    background: var(--brand-navy, #0b2545);
+    color: #fff;
+    padding: 1.5rem 1rem;
+    flex-shrink: 0;
+}
+
+.admin-brand {
+    font-weight: 800;
+    font-size: 1.15rem;
+    margin-bottom: 1.5rem;
+    padding: 0 .5rem;
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    flex-wrap: wrap;
+}
+
+.admin-badge {
+    background: var(--brand-gold, #f4a300);
+    color: var(--brand-navy, #0b2545);
+    font-size: .7rem;
+    font-weight: 800;
+    padding: .15rem .5rem;
+    border-radius: .35rem;
+    letter-spacing: .02em;
+}
+
+.admin-sidebar .nav-link {
+    color: rgba(255, 255, 255, .75);
+    padding: .6rem .75rem;
+    border-radius: .5rem;
+    margin-bottom: .15rem;
+}
+
+    .admin-sidebar .nav-link:hover,
+    .admin-sidebar .nav-link.active {
+        background: rgba(255, 255, 255, .1);
+        color: #fff;
+    }
+
+    .admin-sidebar .nav-link.active {
+        border-inline-start: 3px solid var(--brand-gold, #f4a300);
+    }
+
+.admin-main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.admin-topbar {
+    background: #fff;
+    border-bottom: 1px solid #e5e7eb;
+    padding: 1rem 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.admin-content {
+    padding: 1.5rem;
+}
+
+.stat-card {
+    background: #fff;
+    border-radius: .75rem;
+    padding: 1.25rem;
+    box-shadow: 0 4px 12px rgba(15, 23, 42, .06);
+}
+
+    .stat-card .stat-value {
+        font-size: 1.75rem;
+        font-weight: 800;
+    }
+
+    .stat-card .stat-icon {
+        width: 48px;
+        height: 48px;
+        border-radius: .6rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.4rem;
+    }
+
+.admin-table thead {
+    background: #f8fafc;
+}
+
+/* Wrap any <table class="admin-table"> in <div class="admin-table-wrap"> so
+   wide tables scroll horizontally on small screens instead of breaking the
+   page layout. */
+.admin-table-wrap {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.badge-status-Pending {
+    background: #f59e0b;
+}
+
+.badge-status-Confirmed {
+    background: #2563eb;
+}
+
+.badge-status-Completed {
+    background: #16a34a;
+}
+
+.badge-status-Cancelled {
+    background: #dc2626;
+}
+
+/* ==========================================================================
+   Mobile responsiveness
+   ========================================================================== */
+
+/* Hamburger button shown in the topbar; hidden on desktop where the
+   sidebar is always visible. */
+.admin-sidebar-toggle {
+    display: none;
+    border: none;
+    background: transparent;
+    font-size: 1.4rem;
+    line-height: 1;
+    color: var(--brand-navy, #0b2545);
+    padding: .25rem .5rem;
+}
+
+/* Dark overlay behind the sidebar when it's open on mobile. */
+.admin-sidebar-backdrop {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 23, 42, .5);
+    z-index: 1040;
+}
+
+@media (max-width: 991.98px) {
+    /* Fixed 260px sidebar + flex row is the main reason the admin panel
+       breaks on mobile: it never wraps. Below this width the sidebar
+       becomes an off-canvas panel toggled by the hamburger button. */
+    .admin-sidebar-toggle {
+        display: inline-flex;
+        align-items: center;
+    }
+
+    .admin-sidebar {
+        position: fixed;
+        inset-block: 0;
+        inset-inline-start: 0;
+        width: 260px;
+        max-width: 82vw;
+        transform: translateX(-100%);
+        transition: transform .25s ease;
+        z-index: 1050;
+        overflow-y: auto;
+        display: block;
+    }
+
+    html[dir="rtl"] .admin-sidebar {
+        transform: translateX(100%);
+    }
+
+    .admin-sidebar.is-open {
+        transform: translateX(0);
+    }
+
+    .admin-sidebar-backdrop.is-open {
+        display: block;
+    }
+
+    .admin-sidebar .nav-link.active {
+        border-inline-start: 3px solid var(--brand-gold, #f4a300);
+    }
+}
+
+@media (max-width: 767.98px) {
+    .admin-content {
+        padding: 1rem;
+    }
+
+    .stat-card {
+        padding: 1rem;
+    }
+
+        .stat-card .stat-value {
+            font-size: 1.4rem;
+        }
+}
+
+@media (max-width: 575.98px) {
+    .admin-topbar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: .5rem;
+        padding: .85rem 1rem;
+    }
+}

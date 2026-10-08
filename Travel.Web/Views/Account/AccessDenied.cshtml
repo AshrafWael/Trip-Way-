@@ -1,0 +1,8 @@
+@{
+    ViewData["Title"] = Localizer["AccessDeniedTitle"];
+}
+<section class="container py-5 text-center">
+    <i class="bi bi-shield-lock fs-1 text-danger"></i>
+    <h2 class="fw-bold mt-3">@Localizer["AccessDeniedTitle"]</h2>
+    <a asp-controller="Home" asp-action="Index" class="btn btn-brand mt-3">@Localizer["BackHome"]</a>
+</section>

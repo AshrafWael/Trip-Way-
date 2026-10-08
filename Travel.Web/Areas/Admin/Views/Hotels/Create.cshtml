@@ -1,0 +1,107 @@
+@model CreateHotelDto
+@{
+    ViewData["Title"] = Localizer["AdminHotelsNew"];
+    var destinations = (IReadOnlyList<DestinationDto>)ViewBag.Destinations;
+}
+
+<div class="stat-card" style="max-width: 860px;">
+    <div asp-validation-summary="ModelOnly" class="alert alert-danger d-none-empty"></div>
+    <form asp-action="Create" method="post" enctype="multipart/form-data">
+        <div class="row g-3">
+            <div class="col-md-6">
+                <label asp-for="Name" class="form-label fw-bold"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger small"></span>
+            </div>
+            <div class="col-md-6">
+                <label asp-for="ArabicName" class="form-label fw-bold"></label>
+                <input asp-for="ArabicName" class="form-control" />
+                <span asp-validation-for="ArabicName" class="text-danger small"></span>
+            </div>
+            <div class="col-12">
+                <label asp-for="Description" class="form-label fw-bold"></label>
+                <textarea asp-for="Description" class="form-control" rows="3"></textarea>
+            </div>
+            <div class="col-12">
+                <label asp-for="ArabicDescription" class="form-label fw-bold"></label>
+                <textarea asp-for="ArabicDescription" class="form-control" rows="3"></textarea>
+            </div>
+            <div class="col-md-6">
+                <label asp-for="DestinationId" class="form-label fw-bold"></label>
+                <select asp-for="DestinationId" class="form-select">
+                    <option value="">@Localizer["ChooseDestination"]</option>
+                    @foreach (var d in destinations)
+                    {
+                        <option value="@d.Id">@d.L()</option>
+                    }
+                </select>
+                <span asp-validation-for="DestinationId" class="text-danger small"></span>
+            </div>
+            <div class="col-md-6">
+                <label asp-for="StarRating" class="form-label fw-bold"></label>
+                <select asp-for="StarRating" class="form-select">
+                    @for (var s = 1; s <= 5; s++)
+                    {
+                        <option value="@s">@s &#9733;</option>
+                    }
+                </select>
+            </div>
+            <div class="col-md-6">
+                <label asp-for="Address" class="form-label fw-bold"></label>
+                <input asp-for="Address" class="form-control" />
+                <span asp-validation-for="Address" class="text-danger small"></span>
+            </div>
+            <div class="col-md-6">
+                <label asp-for="ArabicAddress" class="form-label fw-bold"></label>
+                <input asp-for="ArabicAddress" class="form-control" />
+                <span asp-validation-for="ArabicAddress" class="text-danger small"></span>
+            </div>
+            <div class="col-md-4">
+                <label asp-for="PricePerNight" class="form-label fw-bold"></label>
+                <input asp-for="PricePerNight" type="number" step="0.01" class="form-control" />
+                <span class="text-muted small">@Localizer["PriceOptionalHint"]</span>
+                <span asp-validation-for="PricePerNight" class="text-danger small"></span>
+            </div>
+            <div class="col-md-4">
+                <label asp-for="DiscountPricePerNight" class="form-label fw-bold"></label>
+                <input asp-for="DiscountPricePerNight" type="number" step="0.01" class="form-control" />
+                <span asp-validation-for="DiscountPricePerNight" class="text-danger small"></span>
+            </div>
+            <div class="col-md-4">
+                <label asp-for="TotalRooms" class="form-label fw-bold"></label>
+                <input asp-for="TotalRooms" type="number" class="form-control" />
+                <span asp-validation-for="TotalRooms" class="text-danger small"></span>
+            </div>
+            <div class="col-md-6">
+                <label asp-for="AvailableRooms" class="form-label fw-bold"></label>
+                <input asp-for="AvailableRooms" type="number" class="form-control" />
+                <span asp-validation-for="AvailableRooms" class="text-danger small"></span>
+            </div>
+            <div class="col-md-6">
+                <label class="form-label fw-bold">@Localizer["ChooseImage"]</label>
+                <input type="file" name="mainImageFile" accept="image/*" class="form-control" />
+                <span class="text-muted small">@Localizer["MainImageUrl"]:</span>
+                <input asp-for="MainImageUrl" class="form-control mt-1" placeholder="https://..." />
+            </div>
+            <div class="col-12">
+                <label class="form-label fw-bold">@Localizer["ChooseImages"]</label>
+                <input type="file" name="galleryFiles" accept="image/*" multiple class="form-control" />
+            </div>
+            <div class="col-12">
+                <label class="form-label fw-bold">@Localizer["GalleryImages"]</label>
+                <textarea name="imageUrlsRaw" class="form-control" rows="3" placeholder="https://...&#10;https://..."></textarea>
+                <span class="text-muted small">@Localizer["GalleryAddHint"]</span>
+            </div>
+            <div class="col-12 form-check">
+                <input asp-for="IsFeatured" class="form-check-input" />
+                <label asp-for="IsFeatured" class="form-check-label"></label>
+            </div>
+        </div>
+        <div class="mt-4">
+            <button type="submit" class="btn btn-brand">@Localizer["Save"]</button>
+            <a asp-action="Index" class="btn btn-outline-secondary">@Localizer["Cancel"]</a>
+        </div>
+    </form>
+</div>
+
+@section Scripts { <partial name="_ValidationScriptsPartial" /> }

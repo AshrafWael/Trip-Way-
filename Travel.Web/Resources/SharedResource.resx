@@ -1,0 +1,1055 @@
+<?xml version='1.0' encoding='utf-8'?>
+<root xmlns:ns1="urn:schemas-microsoft-com:xml-msdata" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:schema id="root">
+    <xs:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xs:element name="root" ns1:IsDataSet="true">
+      <xs:complexType>
+        <xs:choice maxOccurs="unbounded">
+          <xs:element name="metadata">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="value" type="xsd:string" minOccurs="0" />
+              </xs:sequence>
+              <xs:attribute name="name" use="required" type="xsd:string" />
+              <xs:attribute name="type" type="xsd:string" />
+              <xs:attribute name="mimetype" type="xsd:string" />
+              <xs:attribute ref="xml:space" />
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="assembly">
+            <xs:complexType>
+              <xs:attribute name="alias" type="xsd:string" />
+              <xs:attribute name="name" type="xsd:string" />
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="data">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="value" type="xsd:string" minOccurs="0" ns1:Ordinal="1" />
+                <xs:element name="comment" type="xsd:string" minOccurs="0" ns1:Ordinal="2" />
+              </xs:sequence>
+              <xs:attribute name="name" type="xsd:string" use="required" ns1:Ordinal="1" />
+              <xs:attribute name="type" type="xsd:string" ns1:Ordinal="3" />
+              <xs:attribute name="mimetype" type="xsd:string" ns1:Ordinal="4" />
+              <xs:attribute ref="xml:space" />
+            </xs:complexType>
+          </xs:element>
+        </xs:choice>
+      </xs:complexType>
+    </xs:element>
+  </xs:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="247Support" xml:space="preserve">
+    <value>دعم على مدار الساعة</value>
+  </data>
+  <data name="AboutThisHotel" xml:space="preserve">
+    <value>عن هذا الفندق</value>
+  </data>
+  <data name="AboutThisTrip" xml:space="preserve">
+    <value>عن هذه الرحلة</value>
+  </data>
+  <data name="AccessDeniedTitle" xml:space="preserve">
+    <value>غير مصرح لك بالوصول إلى هذه الصفحة</value>
+  </data>
+  <data name="AccountLocked" xml:space="preserve">
+    <value>تم إيقاف الحساب.</value>
+  </data>
+  <data name="AccountUnlocked" xml:space="preserve">
+    <value>تم تفعيل الحساب.</value>
+  </data>
+  <data name="Active" xml:space="preserve">
+    <value>نشطة</value>
+  </data>
+  <data name="AddReview" xml:space="preserve">
+    <value>أضف تقييماً</value>
+  </data>
+  <data name="AddToWishlist" xml:space="preserve">
+    <value>أضف إلى المفضلة</value>
+  </data>
+  <data name="AddYourReview" xml:space="preserve">
+    <value>أضف تقييمك</value>
+  </data>
+  <data name="AddedToWishlist" xml:space="preserve">
+    <value>أُضيف إلى المفضلة</value>
+  </data>
+  <data name="Address" xml:space="preserve">
+    <value>القاهرة، مصر</value>
+  </data>
+  <data name="AdminConfirmDeactivateHotel" xml:space="preserve">
+    <value>إلغاء تفعيل هذا الفندق؟</value>
+  </data>
+  <data name="AdminHotelBookingsPageTitle" xml:space="preserve">
+    <value>إدارة حجوزات الفنادق</value>
+  </data>
+  <data name="AdminHotelsEditTitle" xml:space="preserve">
+    <value>تعديل الفندق</value>
+  </data>
+  <data name="AdminHotelsHeading" xml:space="preserve">
+    <value>الفنادق</value>
+  </data>
+  <data name="AdminHotelsNew" xml:space="preserve">
+    <value>فندق جديد</value>
+  </data>
+  <data name="AdminHotelsPageTitle" xml:space="preserve">
+    <value>إدارة الفنادق</value>
+  </data>
+  <data name="AdminMsgHotelCreated" xml:space="preserve">
+    <value>تم إنشاء الفندق بنجاح.</value>
+  </data>
+  <data name="AdminMsgHotelDeactivated" xml:space="preserve">
+    <value>تم إلغاء تفعيل الفندق.</value>
+  </data>
+  <data name="AdminMsgHotelUpdated" xml:space="preserve">
+    <value>تم تحديث الفندق بنجاح.</value>
+  </data>
+  <data name="AdminMsgSettingsUpdated" xml:space="preserve">
+    <value>تم حفظ إعدادات الصفحة الرئيسية.</value>
+  </data>
+  <data name="AdminNavHotelBookings" xml:space="preserve">
+    <value>حجوزات الفنادق</value>
+  </data>
+  <data name="AdminNavHotels" xml:space="preserve">
+    <value>الفنادق</value>
+  </data>
+  <data name="AdminNavSettings" xml:space="preserve">
+    <value>إعدادات الصفحة الرئيسية</value>
+  </data>
+  <data name="AdminPanel" xml:space="preserve">
+    <value>لوحة التحكم</value>
+  </data>
+  <data name="AdminSettingsContactHint" xml:space="preserve">
+    <value>هذه البيانات تظهر في صفحة اتصل بنا.</value>
+  </data>
+  <data name="AdminSettingsContactSection" xml:space="preserve">
+    <value>معلومات التواصل</value>
+  </data>
+  <data name="AdminSettingsHeroHint" xml:space="preserve">
+    <value>هذا المحتوى يظهر في أعلى الصفحة الرئيسية للموقع.</value>
+  </data>
+  <data name="AdminSettingsHeroSection" xml:space="preserve">
+    <value>بانر الصفحة الرئيسية</value>
+  </data>
+  <data name="AdminSettingsPageTitle" xml:space="preserve">
+    <value>إعدادات الصفحة الرئيسية</value>
+  </data>
+  <data name="AllDestinations" xml:space="preserve">
+    <value>كل الوجهات</value>
+  </data>
+  <data name="AllRightsReserved" xml:space="preserve">
+    <value>جميع الحقوق محفوظة</value>
+  </data>
+  <data name="AllStarRatings" xml:space="preserve">
+    <value>كل التصنيفات</value>
+  </data>
+  <data name="AlreadyHaveAccount" xml:space="preserve">
+    <value>لديك حساب بالفعل؟</value>
+  </data>
+  <data name="AndUp" xml:space="preserve">
+    <value>فأعلى</value>
+  </data>
+  <data name="AnyNumber" xml:space="preserve">
+    <value>أي عدد</value>
+  </data>
+  <data name="ApplyFilters" xml:space="preserve">
+    <value>تطبيق الفلاتر</value>
+  </data>
+  <data name="Approved" xml:space="preserve">
+    <value>معتمد</value>
+  </data>
+  <data name="ArabicAddress" xml:space="preserve">
+    <value>العنوان بالعربية</value>
+  </data>
+  <data name="ArabicContactAddress" xml:space="preserve">
+    <value>العنوان (عربي)</value>
+  </data>
+  <data name="ArabicContactHours" xml:space="preserve">
+    <value>ساعات العمل (عربي)</value>
+  </data>
+  <data name="ArabicContent" xml:space="preserve">
+    <value>المحتوى بالعربية</value>
+  </data>
+  <data name="ArabicDescription" xml:space="preserve">
+    <value>الوصف بالعربية</value>
+  </data>
+  <data name="ArabicHeroSubtitle" xml:space="preserve">
+    <value>العنوان الفرعي للبانر (عربي)</value>
+  </data>
+  <data name="ArabicHeroTitle" xml:space="preserve">
+    <value>عنوان البانر الرئيسي (عربي)</value>
+  </data>
+  <data name="ArabicName" xml:space="preserve">
+    <value>الاسم بالعربية</value>
+  </data>
+  <data name="ArabicTitle" xml:space="preserve">
+    <value>العنوان بالعربية</value>
+  </data>
+  <data name="Author" xml:space="preserve">
+    <value>الكاتب</value>
+  </data>
+  <data name="AvailablePackages" xml:space="preserve">
+    <value>الرحلات المتاحة</value>
+  </data>
+  <data name="AvailablePackagesIn" xml:space="preserve">
+    <value>الرحلات المتاحة في</value>
+  </data>
+  <data name="AvailableRooms" xml:space="preserve">
+    <value>الغرف المتاحة</value>
+  </data>
+  <data name="AvailableSeats" xml:space="preserve">
+    <value>المقاعد المتاحة</value>
+  </data>
+  <data name="BackHome" xml:space="preserve">
+    <value>العودة إلى الرئيسية</value>
+  </data>
+  <data name="BackToBlog" xml:space="preserve">
+    <value>العودة إلى المدونة</value>
+  </data>
+  <data name="BackToSite" xml:space="preserve">
+    <value>العودة للموقع</value>
+  </data>
+  <data name="Badge" xml:space="preserve">
+    <value>مسؤول</value>
+  </data>
+  <data name="BestPrices" xml:space="preserve">
+    <value>أفضل الأسعار</value>
+  </data>
+  <data name="Blog" xml:space="preserve">
+    <value>المدونة</value>
+  </data>
+  <data name="BlogConfirmDelete" xml:space="preserve">
+    <value>حذف هذا المقال؟</value>
+  </data>
+  <data name="BlogEditTitle" xml:space="preserve">
+    <value>تعديل المقال</value>
+  </data>
+  <data name="BlogHeading" xml:space="preserve">
+    <value>المقالات</value>
+  </data>
+  <data name="BlogNew" xml:space="preserve">
+    <value>مقال جديد</value>
+  </data>
+  <data name="BlogPageTitle" xml:space="preserve">
+    <value>إدارة المدونة</value>
+  </data>
+  <data name="Blog_PageSubtitle" xml:space="preserve">
+    <value>نصائح ووجهات وقصص سفر ملهمة</value>
+  </data>
+  <data name="Blog_PageTitle" xml:space="preserve">
+    <value>مدونة السفر</value>
+  </data>
+  <data name="BookNow" xml:space="preserve">
+    <value>احجز الآن</value>
+  </data>
+  <data name="BookingCancelled" xml:space="preserve">
+    <value>تم إلغاء الحجز.</value>
+  </data>
+  <data name="BookingCreated" xml:space="preserve">
+    <value>تم إرسال طلب الحجز بنجاح. سنقوم بتأكيده قريباً.</value>
+  </data>
+  <data name="BookingStatusUpdated" xml:space="preserve">
+    <value>تم تحديث حالة الحجز.</value>
+  </data>
+  <data name="BookingValidationError" xml:space="preserve">
+    <value>يرجى التحقق من بيانات الحجز والمحاولة مرة أخرى.</value>
+  </data>
+  <data name="Bookings" xml:space="preserve">
+    <value>الحجوزات</value>
+  </data>
+  <data name="BookingsPageTitle" xml:space="preserve">
+    <value>إدارة الحجوزات</value>
+  </data>
+  <data name="Bookings_PageTitle" xml:space="preserve">
+    <value>حجوزاتي</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>إلغاء</value>
+  </data>
+  <data name="CancelBooking" xml:space="preserve">
+    <value>إلغاء الحجز</value>
+  </data>
+  <data name="Cancelled" xml:space="preserve">
+    <value>ملغي</value>
+  </data>
+  <data name="CheckInDate" xml:space="preserve">
+    <value>تاريخ تسجيل الوصول</value>
+  </data>
+  <data name="CheckOutDate" xml:space="preserve">
+    <value>تاريخ تسجيل المغادرة</value>
+  </data>
+  <data name="ChooseDestination" xml:space="preserve">
+    <value>اختر الوجهة</value>
+  </data>
+  <data name="ChooseImage" xml:space="preserve">
+    <value>اختر صورة من جهازك</value>
+  </data>
+  <data name="ChooseImages" xml:space="preserve">
+    <value>اختر صورة واحدة أو أكثر من جهازك</value>
+  </data>
+  <data name="ChooseVideo" xml:space="preserve">
+    <value>اختر فيديو من جهازك (اختياري)</value>
+  </data>
+  <data name="City" xml:space="preserve">
+    <value>المدينة</value>
+  </data>
+  <data name="Comment" xml:space="preserve">
+    <value>التعليق</value>
+  </data>
+  <data name="CommentPlaceholder" xml:space="preserve">
+    <value>شاركنا تجربتك في هذه الرحلة...</value>
+  </data>
+  <data name="Completed" xml:space="preserve">
+    <value>مكتمل</value>
+  </data>
+  <data name="ConfirmCancel" xml:space="preserve">
+    <value>هل تريد إلغاء هذا الحجز؟</value>
+  </data>
+  <data name="ConfirmDeactivate" xml:space="preserve">
+    <value>هل أنت متأكد؟</value>
+  </data>
+  <data name="ConfirmDeactivateDestination" xml:space="preserve">
+    <value>إلغاء تفعيل هذه الوجهة؟</value>
+  </data>
+  <data name="ConfirmDeactivatePackage" xml:space="preserve">
+    <value>إلغاء تفعيل هذه الرحلة؟</value>
+  </data>
+  <data name="ConfirmLock" xml:space="preserve">
+    <value>إيقاف هذا الحساب؟</value>
+  </data>
+  <data name="ConfirmPassword" xml:space="preserve">
+    <value>تأكيد كلمة المرور</value>
+  </data>
+  <data name="Confirmed" xml:space="preserve">
+    <value>مؤكد</value>
+  </data>
+  <data name="Contact" xml:space="preserve">
+    <value>اتصل بنا</value>
+  </data>
+  <data name="ContactAddress" xml:space="preserve">
+    <value>العنوان (إنجليزي)</value>
+  </data>
+  <data name="ContactEmail" xml:space="preserve">
+    <value>البريد الإلكتروني</value>
+  </data>
+  <data name="ContactHours" xml:space="preserve">
+    <value>ساعات العمل (إنجليزي)</value>
+  </data>
+  <data name="ContactInfo" xml:space="preserve">
+    <value>معلومات التواصل</value>
+  </data>
+  <data name="ContactMessages" xml:space="preserve">
+    <value>رسائل التواصل</value>
+  </data>
+  <data name="ContactMessagesPageTitle" xml:space="preserve">
+    <value>رسائل التواصل</value>
+  </data>
+  <data name="ContactPhone" xml:space="preserve">
+    <value>رقم الهاتف</value>
+  </data>
+  <data name="ContactSent" xml:space="preserve">
+    <value>شكراً لتواصلك معنا! سنرد عليك في أقرب وقت ممكن.</value>
+  </data>
+  <data name="ContactUs" xml:space="preserve">
+    <value>تواصل معنا</value>
+  </data>
+  <data name="Contact_PageSubtitle" xml:space="preserve">
+    <value>نسعد بتواصلك معنا في أي وقت</value>
+  </data>
+  <data name="Contact_PageTitle" xml:space="preserve">
+    <value>اتصل بنا</value>
+  </data>
+  <data name="Content" xml:space="preserve">
+    <value>المحتوى</value>
+  </data>
+  <data name="ControlPanel" xml:space="preserve">
+    <value>لوحة التحكم</value>
+  </data>
+  <data name="Country" xml:space="preserve">
+    <value>الدولة</value>
+  </data>
+  <data name="CountryCity" xml:space="preserve">
+    <value>الدولة / المدينة</value>
+  </data>
+  <data name="CreateNewAccount" xml:space="preserve">
+    <value>إنشاء حساب جديد</value>
+  </data>
+  <data name="CurrentGallery" xml:space="preserve">
+    <value>صور المعرض الحالية</value>
+  </data>
+  <data name="CurrentImage" xml:space="preserve">
+    <value>الصورة الحالية</value>
+  </data>
+  <data name="CurrentVideo" xml:space="preserve">
+    <value>الفيديو الحالي</value>
+  </data>
+  <data name="Dash" xml:space="preserve">
+    <value>-</value>
+  </data>
+  <data name="Dashboard" xml:space="preserve">
+    <value>الرئيسية</value>
+  </data>
+  <data name="DashboardNoBookingsYet" xml:space="preserve">
+    <value>لا توجد حجوزات بعد.</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>التاريخ</value>
+  </data>
+  <data name="Days" xml:space="preserve">
+    <value>أيام</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>حذف</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>الوصف</value>
+  </data>
+  <data name="Destination" xml:space="preserve">
+    <value>الوجهة</value>
+  </data>
+  <data name="DestinationCreated" xml:space="preserve">
+    <value>تم إنشاء الوجهة بنجاح.</value>
+  </data>
+  <data name="DestinationDeactivated" xml:space="preserve">
+    <value>تم إلغاء تفعيل الوجهة.</value>
+  </data>
+  <data name="DestinationId" xml:space="preserve">
+    <value>الوجهة</value>
+  </data>
+  <data name="DestinationUpdated" xml:space="preserve">
+    <value>تم تحديث الوجهة بنجاح.</value>
+  </data>
+  <data name="Destinations" xml:space="preserve">
+    <value>الوجهات</value>
+  </data>
+  <data name="DestinationsEditTitle" xml:space="preserve">
+    <value>تعديل الوجهة</value>
+  </data>
+  <data name="DestinationsHeading" xml:space="preserve">
+    <value>الوجهات</value>
+  </data>
+  <data name="DestinationsNew" xml:space="preserve">
+    <value>وجهة جديدة</value>
+  </data>
+  <data name="DestinationsPageTitle" xml:space="preserve">
+    <value>إدارة الوجهات</value>
+  </data>
+  <data name="Destinations_PageSubtitle" xml:space="preserve">
+    <value>اختر وجهتك القادمة من بين أفضل الأماكن حول العالم</value>
+  </data>
+  <data name="Destinations_PageTitle" xml:space="preserve">
+    <value>استكشف وجهاتنا</value>
+  </data>
+  <data name="DiscountPrice" xml:space="preserve">
+    <value>سعر الخصم</value>
+  </data>
+  <data name="DiscountPricePerNight" xml:space="preserve">
+    <value>سعر الخصم لليلة الواحدة</value>
+  </data>
+  <data name="Draft" xml:space="preserve">
+    <value>مسودة</value>
+  </data>
+  <data name="DurationDays" xml:space="preserve">
+    <value>عدد الأيام</value>
+  </data>
+  <data name="DurationNights" xml:space="preserve">
+    <value>عدد الليالي</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>تعديل</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>البريد الإلكتروني</value>
+  </data>
+  <data name="EmptyMessage" xml:space="preserve">
+    <value>قائمة المفضلة فارغة حالياً.</value>
+  </data>
+  <data name="Error_Body" xml:space="preserve">
+    <value>نعتذر عن الإزعاج، يرجى المحاولة مرة أخرى لاحقاً.</value>
+  </data>
+  <data name="Error_Title" xml:space="preserve">
+    <value>حدث خطأ غير متوقع</value>
+  </data>
+  <data name="Explore" xml:space="preserve">
+    <value>استكشف</value>
+  </data>
+  <data name="ExploreHotels" xml:space="preserve">
+    <value>استكشف الفنادق</value>
+  </data>
+  <data name="ExplorePackages" xml:space="preserve">
+    <value>استكشف الرحلات</value>
+  </data>
+  <data name="Featured" xml:space="preserve">
+    <value>مميزة</value>
+  </data>
+  <data name="FeaturedHotels" xml:space="preserve">
+    <value>فنادق مميزة</value>
+  </data>
+  <data name="FeaturedHotelsSubtitle" xml:space="preserve">
+    <value>إقامات فاخرة منتقاة لرحلتك القادمة</value>
+  </data>
+  <data name="FeaturedPackages" xml:space="preserve">
+    <value>رحلات مميزة</value>
+  </data>
+  <data name="FeaturedPackagesSubtitle" xml:space="preserve">
+    <value>عروض منتقاة بعناية لهذا الموسم</value>
+  </data>
+  <data name="Field_Title" xml:space="preserve">
+    <value>العنوان</value>
+  </data>
+  <data name="FilterResults" xml:space="preserve">
+    <value>تصفية النتائج</value>
+  </data>
+  <data name="FullName" xml:space="preserve">
+    <value>الاسم الكامل</value>
+  </data>
+  <data name="GalleryAddHint" xml:space="preserve">
+    <value>الصور المختارة تُضاف إلى صور المعرض الحالية.</value>
+  </data>
+  <data name="GalleryImages" xml:space="preserve">
+    <value>صور المعرض (رابط واحد في كل سطر)</value>
+  </data>
+  <data name="GalleryReplaceHint" xml:space="preserve">
+    <value>حفظ هذا الحقل يستبدل كل صور المعرض الحالية بالقائمة المُدخلة.</value>
+  </data>
+  <data name="GuestsSuffix" xml:space="preserve">
+    <value>نزيل</value>
+  </data>
+  <data name="HeroImageUrl" xml:space="preserve">
+    <value>رابط صورة البانر</value>
+  </data>
+  <data name="HeroSubtitle" xml:space="preserve">
+    <value>استكشف أجمل الوجهات السياحية حول العالم بأفضل الأسعار وخدمة موثوقة</value>
+  </data>
+  <data name="HeroSubtitleLabel" xml:space="preserve">
+    <value>العنوان الفرعي للبانر (إنجليزي)</value>
+  </data>
+  <data name="HeroTitle" xml:space="preserve">
+    <value>اكتشف مغامرتك القادمة</value>
+  </data>
+  <data name="HeroTitleLabel" xml:space="preserve">
+    <value>عنوان البانر الرئيسي (إنجليزي)</value>
+  </data>
+  <data name="Home" xml:space="preserve">
+    <value>الرئيسية</value>
+  </data>
+  <data name="Hotels" xml:space="preserve">
+    <value>الفنادق</value>
+  </data>
+  <data name="HotelsPageSubtitle" xml:space="preserve">
+    <value>اختر إقامتك المثالية من بين أفضل الفنادق حول العالم</value>
+  </data>
+  <data name="HotelsPageTitle" xml:space="preserve">
+    <value>استكشف فنادقنا</value>
+  </data>
+  <data name="Id" xml:space="preserve">
+    <value>#</value>
+  </data>
+  <data name="ImageUrl" xml:space="preserve">
+    <value>رابط الصورة</value>
+  </data>
+  <data name="Inactive" xml:space="preserve">
+    <value>غير نشطة</value>
+  </data>
+  <data name="InvalidImage" xml:space="preserve">
+    <value>صيغة الصورة غير مدعومة أو حجمها أكبر من 10 ميجابايت.</value>
+  </data>
+  <data name="InvalidVideo" xml:space="preserve">
+    <value>صيغة الفيديو غير مدعومة أو حجمه أكبر من 200 ميجابايت.</value>
+  </data>
+  <data name="IsActive" xml:space="preserve">
+    <value>نشطة</value>
+  </data>
+  <data name="IsFeatured" xml:space="preserve">
+    <value>مميزة</value>
+  </data>
+  <data name="IsPublished" xml:space="preserve">
+    <value>منشور</value>
+  </data>
+  <data name="Joined" xml:space="preserve">
+    <value>تاريخ التسجيل</value>
+  </data>
+  <data name="Lock" xml:space="preserve">
+    <value>إيقاف</value>
+  </data>
+  <data name="Locked" xml:space="preserve">
+    <value>موقوف</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>تسجيل الدخول</value>
+  </data>
+  <data name="LoginButton" xml:space="preserve">
+    <value>دخول</value>
+  </data>
+  <data name="LoginLink" xml:space="preserve">
+    <value>تسجيل الدخول</value>
+  </data>
+  <data name="LoginPrompt" xml:space="preserve">
+    <value>سجّل الدخول لحجز هذه الرحلة أو إضافتها إلى المفضلة.</value>
+  </data>
+  <data name="LoginTitle" xml:space="preserve">
+    <value>تسجيل الدخول</value>
+  </data>
+  <data name="LoginToBook" xml:space="preserve">
+    <value>تسجيل الدخول للحجز</value>
+  </data>
+  <data name="Logout" xml:space="preserve">
+    <value>تسجيل الخروج</value>
+  </data>
+  <data name="MainImageUrl" xml:space="preserve">
+    <value>رابط الصورة الرئيسية</value>
+  </data>
+  <data name="MarkAsRead" xml:space="preserve">
+    <value>تعليم كمقروء</value>
+  </data>
+  <data name="MaxTravelers" xml:space="preserve">
+    <value>الحد الأقصى للمسافرين</value>
+  </data>
+  <data name="Message" xml:space="preserve">
+    <value>الرسالة</value>
+  </data>
+  <data name="MyBookings" xml:space="preserve">
+    <value>حجوزاتي</value>
+  </data>
+  <data name="MyHotelReservations" xml:space="preserve">
+    <value>حجوزات الفنادق الخاصة بي</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>الاسم</value>
+  </data>
+  <data name="Newsletter" xml:space="preserve">
+    <value>اشترك في نشرتنا البريدية</value>
+  </data>
+  <data name="NewsletterEmailPlaceholder" xml:space="preserve">
+    <value>بريدك الإلكتروني</value>
+  </data>
+  <data name="NewsletterInvalidEmail" xml:space="preserve">
+    <value>يرجى إدخال بريد إلكتروني صالح.</value>
+  </data>
+  <data name="NewsletterSubscribe" xml:space="preserve">
+    <value>اشترك</value>
+  </data>
+  <data name="NewsletterSubtitle" xml:space="preserve">
+    <value>احصل على أحدث العروض والوجهات الجديدة مباشرة إلى بريدك</value>
+  </data>
+  <data name="Nights" xml:space="preserve">
+    <value>ليالي</value>
+  </data>
+  <data name="NoAccountYet" xml:space="preserve">
+    <value>ليس لديك حساب؟</value>
+  </data>
+  <data name="NoBookingsYet" xml:space="preserve">
+    <value>لا توجد لديك أي حجوزات بعد.</value>
+  </data>
+  <data name="NoDestinations" xml:space="preserve">
+    <value>لا توجد وجهات متاحة حالياً.</value>
+  </data>
+  <data name="NoFeaturedDestinations" xml:space="preserve">
+    <value>لا توجد وجهات مميزة حالياً.</value>
+  </data>
+  <data name="NoFeaturedHotels" xml:space="preserve">
+    <value>لا توجد فنادق مميزة حالياً.</value>
+  </data>
+  <data name="NoFeaturedPackages" xml:space="preserve">
+    <value>لا توجد رحلات مميزة حالياً.</value>
+  </data>
+  <data name="NoHotelBookingsYet" xml:space="preserve">
+    <value>لا توجد لديك حجوزات فنادق بعد.</value>
+  </data>
+  <data name="NoMatching" xml:space="preserve">
+    <value>لا توجد رحلات مطابقة لبحثك.</value>
+  </data>
+  <data name="NoMatchingHotels" xml:space="preserve">
+    <value>لا توجد فنادق مطابقة لبحثك.</value>
+  </data>
+  <data name="NoPosts" xml:space="preserve">
+    <value>لا توجد مقالات منشورة حالياً.</value>
+  </data>
+  <data name="NoReviewsYet" xml:space="preserve">
+    <value>لا توجد تقييمات بعد لهذه الرحلة.</value>
+  </data>
+  <data name="NoRoomsAvailable" xml:space="preserve">
+    <value>لا توجد غرف متاحة</value>
+  </data>
+  <data name="NoSeatsAvailable" xml:space="preserve">
+    <value>لا توجد مقاعد متاحة</value>
+  </data>
+  <data name="NoUsersYet" xml:space="preserve">
+    <value>لا يوجد مستخدمون بعد.</value>
+  </data>
+  <data name="NumberOfGuests" xml:space="preserve">
+    <value>عدد النزلاء</value>
+  </data>
+  <data name="NumberOfRooms" xml:space="preserve">
+    <value>عدد الغرف</value>
+  </data>
+  <data name="PackageCount" xml:space="preserve">
+    <value>عدد الرحلات</value>
+  </data>
+  <data name="PackageCreated" xml:space="preserve">
+    <value>تم إنشاء الرحلة بنجاح.</value>
+  </data>
+  <data name="PackageDeactivated" xml:space="preserve">
+    <value>تم إلغاء تفعيل الرحلة.</value>
+  </data>
+  <data name="PackageUpdated" xml:space="preserve">
+    <value>تم تحديث الرحلة بنجاح.</value>
+  </data>
+  <data name="Packages" xml:space="preserve">
+    <value>الرحلات</value>
+  </data>
+  <data name="PackagesAvailable" xml:space="preserve">
+    <value>رحلة متاحة</value>
+  </data>
+  <data name="PackagesEditTitle" xml:space="preserve">
+    <value>تعديل الرحلة</value>
+  </data>
+  <data name="PackagesHeading" xml:space="preserve">
+    <value>الرحلات</value>
+  </data>
+  <data name="PackagesNew" xml:space="preserve">
+    <value>رحلة جديدة</value>
+  </data>
+  <data name="PackagesPageTitle" xml:space="preserve">
+    <value>إدارة الرحلات</value>
+  </data>
+  <data name="Packages_PageTitle" xml:space="preserve">
+    <value>الرحلات</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>كلمة المرور</value>
+  </data>
+  <data name="Pending" xml:space="preserve">
+    <value>قيد الانتظار</value>
+  </data>
+  <data name="PendingBookings" xml:space="preserve">
+    <value>حجوزات قيد الانتظار</value>
+  </data>
+  <data name="PendingReview" xml:space="preserve">
+    <value>قيد المراجعة</value>
+  </data>
+  <data name="PerNight" xml:space="preserve">
+    <value>لليلة الواحدة</value>
+  </data>
+  <data name="PerPerson" xml:space="preserve">
+    <value>للفرد</value>
+  </data>
+  <data name="Phone" xml:space="preserve">
+    <value>رقم الهاتف</value>
+  </data>
+  <data name="PhoneNumber" xml:space="preserve">
+    <value>رقم الهاتف</value>
+  </data>
+  <data name="PopularDestinations" xml:space="preserve">
+    <value>وجهات شائعة</value>
+  </data>
+  <data name="PopularDestinationsSubtitle" xml:space="preserve">
+    <value>أكثر الوجهات التي يختارها مسافرونا</value>
+  </data>
+  <data name="PostDeleted" xml:space="preserve">
+    <value>تم حذف المقال.</value>
+  </data>
+  <data name="PostPublished" xml:space="preserve">
+    <value>تم نشر المقال.</value>
+  </data>
+  <data name="PostUpdated" xml:space="preserve">
+    <value>تم تحديث المقال.</value>
+  </data>
+  <data name="Price" xml:space="preserve">
+    <value>السعر</value>
+  </data>
+  <data name="PriceFrom" xml:space="preserve">
+    <value>من (سعر)</value>
+  </data>
+  <data name="PricePerNight" xml:space="preserve">
+    <value>السعر لليلة الواحدة</value>
+  </data>
+  <data name="PriceTo" xml:space="preserve">
+    <value>إلى (سعر)</value>
+  </data>
+  <data name="Privacy_Body" xml:space="preserve">
+    <value>سيتم إضافة نص سياسة الخصوصية هنا.</value>
+  </data>
+  <data name="Privacy_Title" xml:space="preserve">
+    <value>سياسة الخصوصية</value>
+  </data>
+  <data name="Published" xml:space="preserve">
+    <value>منشور</value>
+  </data>
+  <data name="PublishedDate" xml:space="preserve">
+    <value>تاريخ النشر</value>
+  </data>
+  <data name="QuickLinks" xml:space="preserve">
+    <value>روابط سريعة</value>
+  </data>
+  <data name="Rating" xml:space="preserve">
+    <value>التقييم</value>
+  </data>
+  <data name="RatingExcellent" xml:space="preserve">
+    <value>ممتاز</value>
+  </data>
+  <data name="RatingFair" xml:space="preserve">
+    <value>مقبول</value>
+  </data>
+  <data name="RatingGood" xml:space="preserve">
+    <value>جيد</value>
+  </data>
+  <data name="RatingPoor" xml:space="preserve">
+    <value>ضعيف</value>
+  </data>
+  <data name="RatingVeryGood" xml:space="preserve">
+    <value>جيد جداً</value>
+  </data>
+  <data name="Read" xml:space="preserve">
+    <value>مقروءة</value>
+  </data>
+  <data name="ReadMore" xml:space="preserve">
+    <value>اقرأ المزيد</value>
+  </data>
+  <data name="RecentBookings" xml:space="preserve">
+    <value>أحدث الحجوزات</value>
+  </data>
+  <data name="RecentUsers" xml:space="preserve">
+    <value>أحدث المستخدمين</value>
+  </data>
+  <data name="Register" xml:space="preserve">
+    <value>إنشاء حساب</value>
+  </data>
+  <data name="RegisterButton" xml:space="preserve">
+    <value>إنشاء حساب</value>
+  </data>
+  <data name="RegisterTitle" xml:space="preserve">
+    <value>إنشاء حساب جديد</value>
+  </data>
+  <data name="ReplaceHint" xml:space="preserve">
+    <value>اختيار ملف جديد يستبدل الملف الحالي.</value>
+  </data>
+  <data name="ReserveNow" xml:space="preserve">
+    <value>احجز الآن</value>
+  </data>
+  <data name="ResultsCount" xml:space="preserve">
+    <value>نتيجة</value>
+  </data>
+  <data name="Revenue" xml:space="preserve">
+    <value>الإيرادات (المؤكدة)</value>
+  </data>
+  <data name="ReviewApproved" xml:space="preserve">
+    <value>تم اعتماد التقييم.</value>
+  </data>
+  <data name="ReviewDeleted" xml:space="preserve">
+    <value>تم حذف التقييم.</value>
+  </data>
+  <data name="ReviewSubmitted" xml:space="preserve">
+    <value>شكراً لتقييمك! سيظهر بعد مراجعته من فريقنا.</value>
+  </data>
+  <data name="ReviewSuffix" xml:space="preserve">
+    <value>تقييم</value>
+  </data>
+  <data name="Reviews" xml:space="preserve">
+    <value>التقييمات</value>
+  </data>
+  <data name="ReviewsConfirmDelete" xml:space="preserve">
+    <value>حذف هذا التقييم؟</value>
+  </data>
+  <data name="ReviewsPageTitle" xml:space="preserve">
+    <value>إدارة التقييمات</value>
+  </data>
+  <data name="Role" xml:space="preserve">
+    <value>الدور</value>
+  </data>
+  <data name="RoomsAvailable" xml:space="preserve">
+    <value>غرفة متاحة</value>
+  </data>
+  <data name="RoomsSuffix" xml:space="preserve">
+    <value>غرفة</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>حفظ</value>
+  </data>
+  <data name="SaveChanges" xml:space="preserve">
+    <value>حفظ التغييرات</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>بحث</value>
+  </data>
+  <data name="SearchButton" xml:space="preserve">
+    <value>استكشف الرحلات</value>
+  </data>
+  <data name="SearchDestination" xml:space="preserve">
+    <value>الوجهة</value>
+  </data>
+  <data name="SearchMaxPrice" xml:space="preserve">
+    <value>الحد الأقصى للسعر</value>
+  </data>
+  <data name="SearchNoLimit" xml:space="preserve">
+    <value>بدون حد</value>
+  </data>
+  <data name="SearchPlaceholder" xml:space="preserve">
+    <value>عن ماذا تبحث؟</value>
+  </data>
+  <data name="SearchTravelers" xml:space="preserve">
+    <value>عدد المسافرين</value>
+  </data>
+  <data name="SeatsAvailable" xml:space="preserve">
+    <value>مقعد متاح</value>
+  </data>
+  <data name="SecureBooking" xml:space="preserve">
+    <value>حجز آمن</value>
+  </data>
+  <data name="SendMessage" xml:space="preserve">
+    <value>إرسال الرسالة</value>
+  </data>
+  <data name="SortBy" xml:space="preserve">
+    <value>الترتيب حسب</value>
+  </data>
+  <data name="SortFeatured" xml:space="preserve">
+    <value>الأكثر تميزاً</value>
+  </data>
+  <data name="SortNewest" xml:space="preserve">
+    <value>الأحدث</value>
+  </data>
+  <data name="SortPriceAsc" xml:space="preserve">
+    <value>السعر: من الأقل للأعلى</value>
+  </data>
+  <data name="SortPriceDesc" xml:space="preserve">
+    <value>السعر: من الأعلى للأقل</value>
+  </data>
+  <data name="SpecialRequests" xml:space="preserve">
+    <value>طلبات خاصة (اختياري)</value>
+  </data>
+  <data name="StarRating" xml:space="preserve">
+    <value>عدد النجوم</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>الحالة</value>
+  </data>
+  <data name="Subject" xml:space="preserve">
+    <value>الموضوع</value>
+  </data>
+  <data name="SubmitReview" xml:space="preserve">
+    <value>إرسال التقييم</value>
+  </data>
+  <data name="TableCheckIn" xml:space="preserve">
+    <value>تسجيل الوصول</value>
+  </data>
+  <data name="TableCheckOut" xml:space="preserve">
+    <value>تسجيل المغادرة</value>
+  </data>
+  <data name="TableEmail" xml:space="preserve">
+    <value>البريد</value>
+  </data>
+  <data name="TableRooms" xml:space="preserve">
+    <value>الغرف</value>
+  </data>
+  <data name="TableStars" xml:space="preserve">
+    <value>النجوم</value>
+  </data>
+  <data name="TableTitle" xml:space="preserve">
+    <value>العنوان</value>
+  </data>
+  <data name="Tagline" xml:space="preserve">
+    <value>شريكك الموثوق لاكتشاف أجمل الوجهات السياحية حول العالم.</value>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>الإجمالي</value>
+  </data>
+  <data name="TotalBookings" xml:space="preserve">
+    <value>إجمالي الحجوزات</value>
+  </data>
+  <data name="TotalDestinations" xml:space="preserve">
+    <value>إجمالي الوجهات</value>
+  </data>
+  <data name="TotalPackages" xml:space="preserve">
+    <value>إجمالي الرحلات</value>
+  </data>
+  <data name="TotalRooms" xml:space="preserve">
+    <value>إجمالي عدد الغرف</value>
+  </data>
+  <data name="TotalUsers" xml:space="preserve">
+    <value>إجمالي المستخدمين</value>
+  </data>
+  <data name="Travel" xml:space="preserve">
+    <value>السفر</value>
+  </data>
+  <data name="TravelDate" xml:space="preserve">
+    <value>تاريخ السفر</value>
+  </data>
+  <data name="TravelerSuffix" xml:space="preserve">
+    <value>مسافر</value>
+  </data>
+  <data name="Travelers" xml:space="preserve">
+    <value>عدد المسافرين</value>
+  </data>
+  <data name="Trip" xml:space="preserve">
+    <value>الرحلة</value>
+  </data>
+  <data name="TrustedGuides" xml:space="preserve">
+    <value>مرشدون موثوقون</value>
+  </data>
+  <data name="Unlock" xml:space="preserve">
+    <value>تفعيل</value>
+  </data>
+  <data name="Update" xml:space="preserve">
+    <value>تحديث</value>
+  </data>
+  <data name="UpdateStatus" xml:space="preserve">
+    <value>تحديث</value>
+  </data>
+  <data name="User" xml:space="preserve">
+    <value>المستخدم</value>
+  </data>
+  <data name="Users" xml:space="preserve">
+    <value>المستخدمون</value>
+  </data>
+  <data name="UsersActive" xml:space="preserve">
+    <value>نشط</value>
+  </data>
+  <data name="UsersPageTitle" xml:space="preserve">
+    <value>إدارة المستخدمين</value>
+  </data>
+  <data name="VideoUrl" xml:space="preserve">
+    <value>رابط الفيديو</value>
+  </data>
+  <data name="ViewAllPackages" xml:space="preserve">
+    <value>عرض كل الرحلات</value>
+  </data>
+  <data name="ViewDetails" xml:space="preserve">
+    <value>عرض التفاصيل</value>
+  </data>
+  <data name="WhyChooseUs" xml:space="preserve">
+    <value>لماذا تختارنا</value>
+  </data>
+  <data name="Wishlist" xml:space="preserve">
+    <value>المفضلة</value>
+  </data>
+  <data name="WishlistAdded" xml:space="preserve">
+    <value>تمت الإضافة إلى المفضلة.</value>
+  </data>
+  <data name="WishlistError" xml:space="preserve">
+    <value>حدث خطأ، حاول مرة أخرى.</value>
+  </data>
+  <data name="WishlistRemoved" xml:space="preserve">
+    <value>تمت الإزالة من المفضلة.</value>
+  </data>
+  <data name="Wishlist_PageTitle" xml:space="preserve">
+    <value>قائمة المفضلة</value>
+  </data>
+  <data name="WorkingHours" xml:space="preserve">
+    <value>السبت - الخميس: 9 صباحاً - 6 مساءً</value>
+  </data>
+  <data name="WriteReview" xml:space="preserve">
+    <value>أضف تقييمك</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>نعم</value>
+  </data>
+<data name="Subtitle" xml:space="preserve"><value>العنوان الفرعي (إنجليزي)</value></data><data name="ArabicSubtitle" xml:space="preserve"><value>العنوان الفرعي (عربي)</value></data><data name="MinRead" xml:space="preserve"><value>دقائق قراءة</value></data><data name="PendingHotelBookings" xml:space="preserve"><value>حجوزات فنادق قيد الانتظار</value></data><data name="RecentHotelBookings" xml:space="preserve"><value>أحدث حجوزات الفنادق</value></data><data name="DashboardNoHotelBookingsYet" xml:space="preserve"><value>لا توجد حجوزات فنادق بعد.</value></data><data name="ContactForPrice" xml:space="preserve"><value>تواصل معنا لمعرفة السعر</value></data><data name="PriceOptionalHint" xml:space="preserve"><value>اختياري - اتركه فارغاً إذا كان السعر يُحدد عبر واتساب</value></data><data name="PriceViaWhatsAppHint" xml:space="preserve"><value>سيتم تحديد السعر النهائي عبر واتساب مع خدمة العملاء.</value></data><data name="WhatsAppNumber" xml:space="preserve"><value>رقم واتساب</value></data><data name="WhatsAppNumberHint" xml:space="preserve"><value>رقم واتساب خدمة العملاء، مع رمز الدولة وبدون علامة + أو مسافات (مثال: 201234567890)</value></data><data name="WhatsAppBookingMessage" xml:space="preserve"><value>مرحباً، أريد استكمال حجزي رقم {1} الخاص بـ {0}.</value></data><data name="ContinueOnWhatsApp" xml:space="preserve"><value>تابع عبر واتساب</value></data><data name="WhatsAppCtaHeading" xml:space="preserve"><value>تم استلام طلبك!</value></data><data name="WhatsAppCtaBody" xml:space="preserve"><value>تواصل معنا الآن عبر واتساب لتأكيد التفاصيل والسعر النهائي.</value></data><data name="ChatOnWhatsApp" xml:space="preserve"><value>محادثة عبر واتساب</value></data><data name="WhatsAppGeneralMessage" xml:space="preserve"><value>مرحباً، لدي استفسار بخصوص خدماتكم.</value></data><data name="AskOnWhatsApp" xml:space="preserve"><value>اسأل عبر واتساب</value></data><data name="WhatsAppAskMessage" xml:space="preserve"><value>مرحباً، لدي سؤال بخصوص {0}.</value></data></root>

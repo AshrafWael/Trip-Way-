@@ -1,0 +1,210 @@
+@model PackageDetailsDto
+@{
+    ViewData["Title"] = Model.L();
+    var unitPrice = Model.DiscountPrice ?? Model.Price;
+    var hasPrice = unitPrice.HasValue;
+}
+
+<section class="container py-5">
+    <div class="row g-5">
+        <div class="col-lg-8">
+            @if (Model.Images.Any())
+            {
+                <div id="packageGallery" class="carousel slide rounded-4 overflow-hidden shadow-sm mb-4" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                        @for (var i = 0; i < Model.Images.Count; i++)
+                        {
+                            <div class="carousel-item @(i == 0 ? "active" : "")" style="aspect-ratio: 16/9; background: #e5e7eb;">
+                                <img src="@Model.Images[i].ImageUrl" class="d-block w-100 h-100" style="object-fit: cover;" alt="@Model.L()" />
+                            </div>
+                        }
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#packageGallery" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon"></span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#packageGallery" data-bs-slide="next">
+                        <span class="carousel-control-next-icon"></span>
+                    </button>
+                </div>
+            }
+            else
+            {
+                <div class="rounded-4 mb-4" style="aspect-ratio: 16/9; background: #e5e7eb;">
+                    <img src="@(string.IsNullOrEmpty(Model.MainImageUrl) ? "/images/package-placeholder.svg" : Model.MainImageUrl)" class="w-100 h-100 rounded-4" style="object-fit: cover;" alt="@Model.L()" />
+                </div>
+            }
+
+            <p class="text-muted mb-1"><i class="bi bi-geo-alt"></i> @Model.DestinationName</p>
+            <h1 class="fw-bold mb-3">@Model.L()</h1>
+
+            @if (!string.IsNullOrEmpty(Model.VideoUrl))
+            {
+                <video src="@Model.VideoUrl" controls class="w-100 rounded-4 mb-4" style="max-height: 420px; background: #000;"></video>
+            }
+
+            <div class="d-flex flex-wrap gap-3 mb-4 text-muted">
+                <span><i class="bi bi-clock"></i> @Model.DurationDays @Localizer["Days"] / @Model.DurationNights @Localizer["Nights"]</span>
+                <span><i class="bi bi-star-fill text-warning"></i> @Model.AverageRating.ToString("0.0") (@Model.ReviewCount @Localizer["ReviewSuffix"])</span>
+                <span><i class="bi bi-people"></i> @Model.AvailableSeats @Localizer["SeatsAvailable"]</span>
+            </div>
+
+            <h5 class="fw-bold">@Localizer["AboutThisTrip"]</h5>
+            <p class="fs-6">@Model.LDescription()</p>
+
+            <hr class="my-4" />
+
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h5 class="fw-bold mb-0">@Localizer["Reviews"] (@Model.Reviews.Count)</h5>
+                @if (User.Identity?.IsAuthenticated == true)
+                {
+                    <a class="btn btn-outline-brand btn-sm border" asp-controller="Reviews" asp-action="Create" asp-route-packageId="@Model.Id">
+                        <i class="bi bi-star"></i> @Localizer["WriteReview"]
+                    </a>
+                }
+            </div>
+            @if (Model.Reviews.Any())
+            {
+                foreach (var review in Model.Reviews)
+                {
+                    <div class="border-bottom pb-3 mb-3">
+                        <div class="d-flex justify-content-between">
+                            <strong>@review.UserFullName</strong>
+                            <span class="text-warning">
+                                @for (var i = 0; i < review.Rating; i++) { <i class="bi bi-star-fill"></i> }
+                            </span>
+                        </div>
+                        <p class="text-muted mb-0">@review.Comment</p>
+                    </div>
+                }
+            }
+            else
+            {
+                <p class="text-muted">@Localizer["NoReviewsYet"]</p>
+            }
+        </div>
+
+        <div class="col-lg-4">
+            <div class="card shadow-sm border-0 p-4" style="position: sticky; top: 90px;">
+                <div class="d-flex align-items-baseline gap-2 mb-1">
+                    @if (Model.DiscountPrice.HasValue)
+                    {
+                        <span class="price-original fs-6">@Model.Price.ToUsdOrNull()</span>
+                        <span class="fs-3 fw-bold text-brand" style="color: var(--brand-teal);">@unitPrice.ToUsdOrNull()</span>
+                        <span class="text-muted small">/ @Localizer["PerPerson"]</span>
+                    }
+                    else if (hasPrice)
+                    {
+                        <span class="fs-3 fw-bold text-brand" style="color: var(--brand-teal);">@unitPrice.ToUsdOrNull()</span>
+                        <span class="text-muted small">/ @Localizer["PerPerson"]</span>
+                    }
+                    else
+                    {
+                        <span class="fs-5 fw-bold text-muted">@Localizer["ContactForPrice"]</span>
+                    }
+                </div>
+
+                @if (User.Identity?.IsAuthenticated == true)
+                {
+                    <form asp-controller="Bookings" asp-action="Create" method="post" id="bookingForm" class="mt-3">
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" name="TravelPackageId" value="@Model.Id" />
+
+                        <div class="mb-3">
+                            <label class="form-label small fw-bold">@Localizer["TravelDate"]</label>
+                            <input type="date" name="TravelDate" class="form-control" required min="@DateTime.Today.AddDays(1).ToString("yyyy-MM-dd")" />
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label small fw-bold">@Localizer["SearchTravelers"]</label>
+                            <input type="number" name="NumberOfTravelers" id="numTravelers" class="form-control"
+                                   value="1" min="1" max="@Model.AvailableSeats"
+                                   data-unit-price="@(unitPrice ?? 0m).ToString("F2", System.Globalization.CultureInfo.InvariantCulture)"
+                                   data-has-price="@hasPrice.ToString().ToLowerInvariant()" required />
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label small fw-bold">@Localizer["SpecialRequests"]</label>
+                            <textarea name="SpecialRequests" class="form-control" rows="2"></textarea>
+                        </div>
+
+                        <div class="d-flex justify-content-between fw-bold fs-5 mb-3 pt-2 border-top">
+                            <span>@Localizer["Total"]</span>
+                            <span id="totalPrice">@(hasPrice ? unitPrice.ToUsdOrNull() : Localizer["ContactForPrice"].Value)</span>
+                        </div>
+                        @if (!hasPrice)
+                        {
+                            <p class="text-muted small">@Localizer["PriceViaWhatsAppHint"]</p>
+                        }
+
+                        <button type="submit" class="btn btn-brand w-100 py-2 mb-2" @(Model.AvailableSeats == 0 ? "disabled" : "")>
+                            @(Model.AvailableSeats == 0 ? Localizer["NoSeatsAvailable"] : Localizer["BookNow"])
+                        </button>
+                        <button type="button" class="btn btn-outline-brand w-100 border" id="wishlistBtn" data-package-id="@Model.Id"
+                                data-added-text="@Localizer["AddedToWishlist"]" data-error-text="@Localizer["WishlistError"]">
+                            <i class="bi bi-heart"></i> @Localizer["AddToWishlist"]
+                        </button>
+                    </form>
+                }
+                else
+                {
+                    <div class="mt-3">
+                        <p class="text-muted small">@Localizer["LoginPrompt"]</p>
+                        <a class="btn btn-brand w-100 py-2" asp-controller="Account" asp-action="Login" asp-route-returnUrl="@Url.Action("Details", "Packages", new { id = Model.Id })">
+                            @Localizer["LoginToBook"]
+                        </a>
+                    </div>
+                }
+
+                @{
+                    var packageWhatsAppUrl = Travel.Web.Helpers.WhatsAppHelper.BuildChatUrl(
+                        ViewBag.WhatsAppNumber as string,
+                        string.Format(Localizer["WhatsAppAskMessage"].Value, Model.L()));
+                }
+                @if (!string.IsNullOrEmpty(packageWhatsAppUrl))
+                {
+                    <a href="@packageWhatsAppUrl" target="_blank" rel="noopener" class="btn w-100 py-2 mt-2" style="background:#25D366; color:#fff;">
+                        <i class="bi bi-whatsapp"></i> @Localizer["AskOnWhatsApp"]
+                    </a>
+                }
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    <script>
+        // Recalculates the total price live as the traveler count changes,
+        // per the "dynamic total" requirement -- final validation/pricing
+        // is still enforced server-side in Travel.API when the booking posts.
+        const numTravelers = document.getElementById('numTravelers');
+        const totalPriceEl = document.getElementById('totalPrice');
+
+        function formatCurrency(value) {
+            return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(value);
+        }
+
+        numTravelers?.addEventListener('input', () => {
+            if (numTravelers.dataset.hasPrice !== 'true') return;
+            const unitPrice = parseFloat(numTravelers.dataset.unitPrice || '0');
+            const count = parseInt(numTravelers.value || '1', 10);
+            totalPriceEl.textContent = formatCurrency(unitPrice * Math.max(count, 1));
+        });
+
+        // Wishlist add via AJAX (see wwwroot/js/site.js for addToWishlist).
+        document.getElementById('wishlistBtn')?.addEventListener('click', function () {
+            const btn = this;
+            const packageId = btn.dataset.packageId;
+            const token = document.querySelector('#bookingForm input[name="__RequestVerificationToken"]').value;
+
+            addToWishlist(packageId, token, (result) => {
+                if (result.success) {
+                    btn.innerHTML = '<i class="bi bi-heart-fill"></i> ' + btn.dataset.addedText;
+                    btn.disabled = true;
+                    btn.classList.replace('btn-outline-brand', 'btn-brand');
+                } else {
+                    alert(result.message || btn.dataset.errorText);
+                }
+            });
+        });
+    </script>
+}

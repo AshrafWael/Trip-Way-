@@ -1,0 +1,237 @@
+@model Travel.Web.ViewModels.Home.HomeViewModel
+@{
+    ViewData["Title"] = Localizer["Home"];
+    var heroTitle = Model.Settings is { } s1 && !string.IsNullOrEmpty(LocalizedContentExtensions.IsArabic ? s1.ArabicHeroTitle : s1.HeroTitle)
+        ? (LocalizedContentExtensions.IsArabic ? s1.ArabicHeroTitle : s1.HeroTitle)
+        : Localizer["HeroTitle"].Value;
+    var heroSubtitle = Model.Settings is { } s2 && !string.IsNullOrEmpty(LocalizedContentExtensions.IsArabic ? s2.ArabicHeroSubtitle : s2.HeroSubtitle)
+        ? (LocalizedContentExtensions.IsArabic ? s2.ArabicHeroSubtitle : s2.HeroSubtitle)
+        : Localizer["HeroSubtitle"].Value;
+    var heroImageUrl = Model.Settings?.HeroImageUrl;
+    var heroStyle = !string.IsNullOrEmpty(heroImageUrl)
+        ? $"background: linear-gradient(rgba(11,37,69,.55), rgba(11,37,69,.65)), url('{heroImageUrl}') center/cover no-repeat;"
+        : null;
+}
+
+<section class="hero-section" style="@heroStyle">
+    <div class="container">
+        <div class="row justify-content-center text-center mb-4">
+            <div class="col-lg-8 hero-text-animate">
+                <h1>@heroTitle</h1>
+                <p class="lead">@heroSubtitle</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="container py-5">
+    <div class="text-center mb-4">
+        <h2 class="section-title">@Localizer["PopularDestinations"]</h2>
+        <p class="section-subtitle">@Localizer["PopularDestinationsSubtitle"]</p>
+    </div>
+
+    @if (Model.FeaturedDestinations.Any())
+    {
+        <div class="row g-4">
+            @foreach (var destination in Model.FeaturedDestinations)
+            {
+                <div class="col-sm-6 col-lg-4">
+                    <div class="card destination-card">
+                        <div class="card-img-wrap">
+                            <img src="@(string.IsNullOrEmpty(destination.ImageUrl) ? "/images/destination-placeholder.svg" : destination.ImageUrl)" alt="@destination.L()" />
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title fw-bold">@destination.L()</h5>
+                            <p class="text-muted mb-2"><i class="bi bi-geo-alt"></i> @destination.Country</p>
+                            <p class="text-muted small mb-3">@destination.PackageCount @Localizer["PackagesAvailable"]</p>
+                            <a asp-controller="Destinations" asp-action="Details" asp-route-id="@destination.Id" class="btn btn-outline-brand btn-sm border">
+                                @Localizer["Explore"] <i class="bi bi-arrow-left"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="empty-state">
+            <i class="bi bi-map fs-1"></i>
+            <p class="mt-2">@Localizer["NoFeaturedDestinations"]</p>
+        </div>
+    }
+</section>
+
+<section class="container py-5">
+    <div class="text-center mb-4">
+        <h2 class="section-title">@Localizer["FeaturedPackages"]</h2>
+        <p class="section-subtitle">@Localizer["FeaturedPackagesSubtitle"]</p>
+    </div>
+
+    @if (Model.FeaturedPackages.Any())
+    {
+        <div class="row g-4">
+            @foreach (var package in Model.FeaturedPackages)
+            {
+                <div class="col-sm-6 col-lg-4">
+                    <div class="card package-card">
+                        <div class="card-img-wrap">
+                            <img src="@(string.IsNullOrEmpty(package.MainImageUrl) ? "/images/package-placeholder.svg" : package.MainImageUrl)" alt="@package.L()" />
+                        </div>
+                        <div class="card-body">
+                            <p class="text-muted small mb-1"><i class="bi bi-geo-alt"></i> @package.DestinationName</p>
+                            <h5 class="card-title fw-bold">@package.L()</h5>
+                            <p class="text-muted small mb-2">
+                                <i class="bi bi-clock"></i> @package.DurationDays @Localizer["Days"] / @package.DurationNights @Localizer["Nights"]
+                            </p>
+                            <div class="d-flex align-items-center gap-2 mb-3">
+                                @if (package.DiscountPrice.HasValue)
+                                {
+                                    <span class="price-original">@package.Price.ToUsdOrNull()</span>
+                                    <span class="price-badge">@package.DiscountPrice.Value.ToUsd()</span>
+                                }
+                                else if (package.Price.HasValue)
+                                {
+                                    <span class="price-badge">@package.Price.Value.ToUsd()</span>
+                                }
+                                else
+                                {
+                                    <span class="text-muted small">@Localizer["ContactForPrice"]</span>
+                                }
+                            </div>
+                            <a asp-controller="Packages" asp-action="Details" asp-route-id="@package.Id" class="btn btn-brand btn-sm w-100">
+                                @Localizer["ViewDetails"]
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="empty-state">
+            <i class="bi bi-suitcase fs-1"></i>
+            <p class="mt-2">@Localizer["NoFeaturedPackages"]</p>
+        </div>
+    }
+</section>
+
+<section class="container py-5">
+    <div class="text-center mb-4">
+        <h2 class="section-title">@Localizer["FeaturedHotels"]</h2>
+        <p class="section-subtitle">@Localizer["FeaturedHotelsSubtitle"]</p>
+    </div>
+
+    @if (Model.FeaturedHotels.Any())
+    {
+        <div class="row g-4">
+            @foreach (var hotel in Model.FeaturedHotels)
+            {
+                <div class="col-sm-6 col-lg-4">
+                    <div class="card package-card">
+                        <div class="card-img-wrap">
+                            <img src="@(string.IsNullOrEmpty(hotel.MainImageUrl) ? "/images/package-placeholder.svg" : hotel.MainImageUrl)" alt="@hotel.L()" />
+                        </div>
+                        <div class="card-body">
+                            <p class="text-muted small mb-1"><i class="bi bi-geo-alt"></i> @hotel.DestinationName</p>
+                            <h5 class="card-title fw-bold">@hotel.L()</h5>
+                            <p class="text-muted small mb-2">
+                                @for (var s = 0; s < hotel.StarRating; s++) { <i class="bi bi-star-fill text-warning"></i> }
+                                &middot; @hotel.AvailableRooms @Localizer["RoomsAvailable"]
+                            </p>
+                            <div class="d-flex align-items-center gap-2 mb-3">
+                                @if (hotel.DiscountPricePerNight.HasValue)
+                                {
+                                    <span class="price-original">@hotel.PricePerNight.ToUsdOrNull()</span>
+                                    <span class="price-badge">@hotel.DiscountPricePerNight.Value.ToUsd()</span>
+                                    <span class="text-muted small">/ @Localizer["PerNight"]</span>
+                                }
+                                else if (hotel.PricePerNight.HasValue)
+                                {
+                                    <span class="price-badge">@hotel.PricePerNight.Value.ToUsd()</span>
+                                    <span class="text-muted small">/ @Localizer["PerNight"]</span>
+                                }
+                                else
+                                {
+                                    <span class="text-muted small">@Localizer["ContactForPrice"]</span>
+                                }
+                            </div>
+                            <a asp-controller="Hotels" asp-action="Details" asp-route-id="@hotel.Id" class="btn btn-brand btn-sm w-100">
+                                @Localizer["ViewDetails"]
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="empty-state">
+            <i class="bi bi-building fs-1"></i>
+            <p class="mt-2">@Localizer["NoFeaturedHotels"]</p>
+        </div>
+    }
+</section>
+
+<section class="container py-5">
+    <div class="text-center mb-5">
+        <h2 class="section-title">@Localizer["WhyChooseUs"]</h2>
+    </div>
+    <div class="row g-4 text-center">
+        <div class="col-6 col-md-3">
+            <div class="feature-icon"><i class="bi bi-tag"></i></div>
+            <h6 class="fw-bold">@Localizer["BestPrices"]</h6>
+        </div>
+        <div class="col-6 col-md-3">
+            <div class="feature-icon"><i class="bi bi-person-check"></i></div>
+            <h6 class="fw-bold">@Localizer["TrustedGuides"]</h6>
+        </div>
+        <div class="col-6 col-md-3">
+            <div class="feature-icon"><i class="bi bi-shield-check"></i></div>
+            <h6 class="fw-bold">@Localizer["SecureBooking"]</h6>
+        </div>
+        <div class="col-6 col-md-3">
+            <div class="feature-icon"><i class="bi bi-headset"></i></div>
+            <h6 class="fw-bold">@Localizer["247Support"]</h6>
+        </div>
+    </div>
+</section>
+
+<section class="py-5" style="background: var(--brand-navy); color: #fff;">
+    <div class="container text-center">
+        <h3 class="fw-bold mb-2">@Localizer["Newsletter"]</h3>
+        <p class="text-white-50 mb-4">@Localizer["NewsletterSubtitle"]</p>
+        <form id="newsletterForm" class="row justify-content-center g-2">
+            @Html.AntiForgeryToken()
+            <div class="col-md-5">
+                <input type="email" name="email" id="newsletterEmail" class="form-control form-control-lg" placeholder="@Localizer["NewsletterEmailPlaceholder"]" required />
+            </div>
+            <div class="col-md-auto">
+                <button type="submit" class="btn btn-warning btn-lg text-dark fw-bold">@Localizer["NewsletterSubscribe"]</button>
+            </div>
+            <div class="col-12">
+                <p id="newsletterFeedback" class="small mb-0 mt-2"></p>
+            </div>
+        </form>
+    </div>
+</section>
+
+@section Scripts {
+    <script>
+        document.getElementById('newsletterForm')?.addEventListener('submit', function (e) {
+            e.preventDefault();
+            const form = e.target;
+            const email = document.getElementById('newsletterEmail').value;
+            const token = form.querySelector('input[name="__RequestVerificationToken"]').value;
+            const feedback = document.getElementById('newsletterFeedback');
+
+            subscribeToNewsletter(email, token, (result) => {
+                feedback.textContent = result.message;
+                feedback.className = 'small mb-0 mt-2 ' + (result.success ? 'text-success' : 'text-warning');
+                if (result.success) form.reset();
+            });
+        });
+    </script>
+}

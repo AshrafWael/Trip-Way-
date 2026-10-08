@@ -1,0 +1,117 @@
+@using Travel.BLL.DTOs.Settings
+@model UpdateSiteSettingsDto
+@{
+    ViewData["Title"] = Localizer["AdminSettingsPageTitle"];
+}
+
+<div class="stat-card" style="max-width: 800px;">
+    <h5 class="fw-bold mb-1">@Localizer["AdminSettingsHeroSection"]</h5>
+    <p class="text-muted small mb-4">@Localizer["AdminSettingsHeroHint"]</p>
+
+    <div asp-validation-summary="ModelOnly" class="alert alert-danger d-none-empty"></div>
+
+    <form asp-action="Index" method="post" enctype="multipart/form-data">
+        <div class="row g-3">
+            <div class="col-md-6">
+                <label asp-for="HeroTitle" class="form-label fw-bold"></label>
+                <input asp-for="HeroTitle" class="form-control" />
+                <span asp-validation-for="HeroTitle" class="text-danger small"></span>
+            </div>
+            <div class="col-md-6">
+                <label asp-for="ArabicHeroTitle" class="form-label fw-bold"></label>
+                <input asp-for="ArabicHeroTitle" class="form-control" />
+                <span asp-validation-for="ArabicHeroTitle" class="text-danger small"></span>
+            </div>
+            <div class="col-md-6">
+                <label asp-for="HeroSubtitle" class="form-label fw-bold"></label>
+                <textarea asp-for="HeroSubtitle" class="form-control" rows="2"></textarea>
+                <span asp-validation-for="HeroSubtitle" class="text-danger small"></span>
+            </div>
+            <div class="col-md-6">
+                <label asp-for="ArabicHeroSubtitle" class="form-label fw-bold"></label>
+                <textarea asp-for="ArabicHeroSubtitle" class="form-control" rows="2"></textarea>
+                <span asp-validation-for="ArabicHeroSubtitle" class="text-danger small"></span>
+            </div>
+            <div class="col-12">
+                @if (!string.IsNullOrEmpty(Model.HeroImageUrl))
+                {
+                    <label class="form-label fw-bold d-block">@Localizer["CurrentImage"]</label>
+                    <img src="@Model.HeroImageUrl" alt="" class="rounded mb-2" style="max-height: 160px;" />
+                }
+                <label class="form-label fw-bold d-block">@Localizer["ChooseImage"]</label>
+                <input type="file" name="heroImageFile" accept="image/*" class="form-control" />
+            </div>
+            <div class="col-12">
+                <label asp-for="HeroImageUrl" class="form-label fw-bold"></label>
+                <input asp-for="HeroImageUrl" class="form-control" placeholder="https://..." />
+                <span class="text-muted small">@Localizer["ReplaceHint"]</span>
+            </div>
+            <input type="hidden" name="ContactPhone" value="@Model.ContactPhone" />
+            <input type="hidden" name="ContactEmail" value="@Model.ContactEmail" />
+            <input type="hidden" name="ContactAddress" value="@Model.ContactAddress" />
+            <input type="hidden" name="ArabicContactAddress" value="@Model.ArabicContactAddress" />
+            <input type="hidden" name="ContactHours" value="@Model.ContactHours" />
+            <input type="hidden" name="ArabicContactHours" value="@Model.ArabicContactHours" />
+            <input type="hidden" name="WhatsAppNumber" value="@Model.WhatsAppNumber" />
+        </div>
+        <div class="mt-4">
+            <button type="submit" class="btn btn-brand">@Localizer["SaveChanges"]</button>
+        </div>
+    </form>
+</div>
+
+<div class="stat-card mt-4" style="max-width: 800px;">
+    <h5 class="fw-bold mb-1">@Localizer["AdminSettingsContactSection"]</h5>
+    <p class="text-muted small mb-4">@Localizer["AdminSettingsContactHint"]</p>
+
+    <form asp-action="Index" method="post" enctype="multipart/form-data">
+        <div class="row g-3">
+            <div class="col-md-6">
+                <label asp-for="ContactPhone" class="form-label fw-bold"></label>
+                <input asp-for="ContactPhone" class="form-control" />
+                <span asp-validation-for="ContactPhone" class="text-danger small"></span>
+            </div>
+            <div class="col-md-6">
+                <label asp-for="ContactEmail" class="form-label fw-bold"></label>
+                <input asp-for="ContactEmail" class="form-control" />
+                <span asp-validation-for="ContactEmail" class="text-danger small"></span>
+            </div>
+            <div class="col-md-6">
+                <label asp-for="ContactAddress" class="form-label fw-bold"></label>
+                <input asp-for="ContactAddress" class="form-control" />
+                <span asp-validation-for="ContactAddress" class="text-danger small"></span>
+            </div>
+            <div class="col-md-6">
+                <label asp-for="ArabicContactAddress" class="form-label fw-bold"></label>
+                <input asp-for="ArabicContactAddress" class="form-control" />
+                <span asp-validation-for="ArabicContactAddress" class="text-danger small"></span>
+            </div>
+            <div class="col-md-6">
+                <label asp-for="ContactHours" class="form-label fw-bold"></label>
+                <input asp-for="ContactHours" class="form-control" />
+                <span asp-validation-for="ContactHours" class="text-danger small"></span>
+            </div>
+            <div class="col-md-6">
+                <label asp-for="ArabicContactHours" class="form-label fw-bold"></label>
+                <input asp-for="ArabicContactHours" class="form-control" />
+                <span asp-validation-for="ArabicContactHours" class="text-danger small"></span>
+            </div>
+            <div class="col-md-6">
+                <label asp-for="WhatsAppNumber" class="form-label fw-bold"></label>
+                <input asp-for="WhatsAppNumber" class="form-control" placeholder="201234567890" />
+                <span asp-validation-for="WhatsAppNumber" class="text-danger small"></span>
+                <span class="text-muted small">@Localizer["WhatsAppNumberHint"]</span>
+            </div>
+            <input type="hidden" name="HeroTitle" value="@Model.HeroTitle" />
+            <input type="hidden" name="ArabicHeroTitle" value="@Model.ArabicHeroTitle" />
+            <input type="hidden" name="HeroSubtitle" value="@Model.HeroSubtitle" />
+            <input type="hidden" name="ArabicHeroSubtitle" value="@Model.ArabicHeroSubtitle" />
+            <input type="hidden" name="HeroImageUrl" value="@Model.HeroImageUrl" />
+        </div>
+        <div class="mt-4">
+            <button type="submit" class="btn btn-brand">@Localizer["SaveChanges"]</button>
+        </div>
+    </form>
+</div>
+
+@section Scripts { <partial name="_ValidationScriptsPartial" /> }

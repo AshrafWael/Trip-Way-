@@ -1,0 +1,27 @@
+@model DestinationDto
+@{
+    ViewData["Title"] = Model.L();
+    var imageUrl = string.IsNullOrEmpty(Model.ImageUrl) ? "/images/destination-placeholder.svg" : Model.ImageUrl;
+}
+
+<section class="hero-section" style="min-height: 340px; background: linear-gradient(rgba(11,37,69,.55), rgba(11,37,69,.65)), url('@imageUrl') center/cover no-repeat;">
+    <div class="container">
+        <h1>@Model.L()</h1>
+        <p class="lead mb-0"><i class="bi bi-geo-alt"></i> @Model.City, @Model.Country</p>
+    </div>
+</section>
+
+<section class="container py-5">
+    <div class="row">
+        <div class="col-lg-8">
+            <p class="fs-5">@Model.LDescription()</p>
+        </div>
+    </div>
+
+    <div class="d-flex justify-content-between align-items-center mt-4 mb-3">
+        <h4 class="fw-bold mb-0">@Localizer["AvailablePackagesIn"] @Model.L()</h4>
+        <a class="btn btn-brand" asp-controller="Packages" asp-action="Index" asp-route-destinationId="@Model.Id">
+            @Localizer["ViewAllPackages"] <i class="bi bi-arrow-left"></i>
+        </a>
+    </div>
+</section>

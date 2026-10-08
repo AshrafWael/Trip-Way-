@@ -1,0 +1,43 @@
+@model CreateReviewDto
+@{
+    ViewData["Title"] = Localizer["AddYourReview"];
+}
+
+<section class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-7 col-lg-6">
+            <div class="card shadow-sm border-0 p-4">
+                <h2 class="fw-bold mb-1">@Localizer["AddYourReview"]</h2>
+                <p class="text-muted mb-4">@ViewBag.PackageTitle</p>
+
+                <div asp-validation-summary="ModelOnly" class="alert alert-danger d-none-empty"></div>
+
+                <form asp-action="Create" method="post">
+                    <input type="hidden" asp-for="TravelPackageId" />
+
+                    <div class="mb-3">
+                        <label asp-for="Rating" class="form-label fw-bold"></label>
+                        <select asp-for="Rating" class="form-select">
+                            <option value="5">5 - @Localizer["RatingExcellent"]</option>
+                            <option value="4">4 - @Localizer["RatingVeryGood"]</option>
+                            <option value="3">3 - @Localizer["RatingGood"]</option>
+                            <option value="2">2 - @Localizer["RatingFair"]</option>
+                            <option value="1">1 - @Localizer["RatingPoor"]</option>
+                        </select>
+                        <span asp-validation-for="Rating" class="text-danger small"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Comment" class="form-label fw-bold"></label>
+                        <textarea asp-for="Comment" class="form-control" rows="4" placeholder="@Localizer["CommentPlaceholder"]"></textarea>
+                        <span asp-validation-for="Comment" class="text-danger small"></span>
+                    </div>
+
+                    <button type="submit" class="btn btn-brand w-100 py-2">@Localizer["SubmitReview"]</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts { <partial name="_ValidationScriptsPartial" /> }

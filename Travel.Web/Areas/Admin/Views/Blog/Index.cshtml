@@ -1,0 +1,41 @@
+@model IReadOnlyList<BlogPostDto>
+@{
+    ViewData["Title"] = Localizer["BlogPageTitle"];
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h5 class="mb-0">@Localizer["BlogHeading"] (@Model.Count)</h5>
+    <a class="btn btn-brand" asp-action="Create"><i class="bi bi-plus-lg"></i> @Localizer["BlogNew"]</a>
+</div>
+
+<div class="stat-card">
+    <table class="table admin-table align-middle mb-0">
+        <thead><tr><th>@Localizer["TableTitle"]</th><th>@Localizer["Author"]</th><th>@Localizer["PublishedDate"]</th><th>@Localizer["Status"]</th><th></th></tr></thead>
+        <tbody>
+            @foreach (var post in Model)
+            {
+                <tr>
+                    <td>@post.L()</td>
+                    <td>@post.AuthorName</td>
+                    <td>@(post.PublishedAt?.ToString("yyyy-MM-dd") ?? Localizer["Dash"])</td>
+                    <td>
+                        @if (post.IsPublished)
+                        {
+                            <span class="badge bg-success">@Localizer["Published"]</span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-secondary">@Localizer["Draft"]</span>
+                        }
+                    </td>
+                    <td class="text-end">
+                        <a class="btn btn-sm btn-outline-secondary" asp-action="Edit" asp-route-id="@post.Id"><i class="bi bi-pencil"></i></a>
+                        <form asp-action="Delete" asp-route-id="@post.Id" method="post" class="d-inline" onsubmit="return confirm('@Localizer["BlogConfirmDelete"]');">
+                            <button type="submit" class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

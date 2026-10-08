@@ -1,0 +1,42 @@
+@model Travel.Web.ViewModels.Account.LoginViewModel
+@{
+    ViewData["Title"] = Localizer["LoginTitle"];
+}
+
+<section class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-5">
+            <div class="card shadow-sm border-0 p-4">
+                <h2 class="fw-bold text-center mb-4">@Localizer["LoginTitle"]</h2>
+
+                <div asp-validation-summary="ModelOnly" class="alert alert-danger d-none-empty"></div>
+
+                <form asp-controller="Account" asp-action="Login" method="post">
+                    <input type="hidden" asp-for="ReturnUrl" />
+
+                    <div class="mb-3">
+                        <label asp-for="Email" class="form-label fw-bold"></label>
+                        <input asp-for="Email" class="form-control" />
+                        <span asp-validation-for="Email" class="text-danger small"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Password" class="form-label fw-bold"></label>
+                        <input asp-for="Password" class="form-control" />
+                        <span asp-validation-for="Password" class="text-danger small"></span>
+                    </div>
+
+                    <button type="submit" class="btn btn-brand w-100 py-2">@Localizer["LoginButton"]</button>
+                </form>
+
+                <p class="text-center mt-3 mb-0">
+                    @Localizer["NoAccountYet"] <a asp-controller="Account" asp-action="Register">@Localizer["CreateNewAccount"]</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

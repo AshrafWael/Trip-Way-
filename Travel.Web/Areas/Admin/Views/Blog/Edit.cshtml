@@ -1,0 +1,80 @@
+@model UpdateBlogPostDto
+@{
+    ViewData["Title"] = Localizer["BlogEditTitle"];
+}
+
+<div class="stat-card" style="max-width: 800px;">
+    <div asp-validation-summary="ModelOnly" class="alert alert-danger d-none-empty"></div>
+    <form asp-action="Edit" asp-route-id="@ViewBag.PostId" method="post" enctype="multipart/form-data">
+        <div class="row g-3">
+            <div class="col-md-6">
+                <label asp-for="Title" class="form-label fw-bold"></label>
+                <input asp-for="Title" class="form-control" />
+            </div>
+            <div class="col-md-6">
+                <label asp-for="ArabicTitle" class="form-label fw-bold"></label>
+                <input asp-for="ArabicTitle" class="form-control" />
+            </div>
+            <div class="col-md-6">
+                <label asp-for="Subtitle" class="form-label fw-bold"></label>
+                <input asp-for="Subtitle" class="form-control" />
+            </div>
+            <div class="col-md-6">
+                <label asp-for="ArabicSubtitle" class="form-label fw-bold"></label>
+                <input asp-for="ArabicSubtitle" class="form-control" />
+            </div>
+            <div class="col-12">
+                <label asp-for="Content" class="form-label fw-bold"></label>
+                <textarea asp-for="Content" class="form-control" rows="4"></textarea>
+            </div>
+            <div class="col-12">
+                <label asp-for="ArabicContent" class="form-label fw-bold"></label>
+                <textarea asp-for="ArabicContent" class="form-control" rows="4"></textarea>
+            </div>
+            <div class="col-12">
+                @if (!string.IsNullOrEmpty(Model.ImageUrl))
+                {
+                    <label class="form-label fw-bold d-block">@Localizer["CurrentImage"]</label>
+                    <img src="@Model.ImageUrl" alt="" class="rounded mb-2" style="max-height: 140px;" />
+                }
+                <label class="form-label fw-bold d-block">@Localizer["ChooseImage"]</label>
+                <input type="file" name="imageFile" accept="image/*" class="form-control" />
+            </div>
+            <div class="col-12">
+                <label asp-for="ImageUrl" class="form-label fw-bold"></label>
+                <input asp-for="ImageUrl" class="form-control" />
+                <span class="text-muted small">@Localizer["ReplaceHint"]</span>
+            </div>
+            <div class="col-12">
+                @{ var galleryImages = (List<string>)(ViewBag.CurrentGalleryImages ?? new List<string>()); }
+                @if (galleryImages.Any())
+                {
+                    <label class="form-label fw-bold d-block">@Localizer["CurrentGallery"]</label>
+                    <div class="d-flex flex-wrap gap-2 mb-2">
+                        @foreach (var url in galleryImages)
+                        {
+                            <img src="@url" alt="" class="rounded" style="height: 80px; width: 80px; object-fit: cover;" />
+                        }
+                    </div>
+                }
+                <label class="form-label fw-bold d-block">@Localizer["ChooseImages"]</label>
+                <input type="file" name="galleryFiles" accept="image/*" multiple class="form-control" />
+            </div>
+            <div class="col-12">
+                <label class="form-label fw-bold">@Localizer["GalleryImages"]</label>
+                <textarea name="imageUrlsRaw" class="form-control" rows="3">@ViewBag.ImageUrlsRaw</textarea>
+                <span class="text-muted small">@Localizer["GalleryAddHint"]</span>
+            </div>
+            <div class="col-12 form-check">
+                <input asp-for="IsPublished" class="form-check-input" />
+                <label asp-for="IsPublished" class="form-check-label"></label>
+            </div>
+        </div>
+        <div class="mt-4">
+            <button type="submit" class="btn btn-brand">@Localizer["SaveChanges"]</button>
+            <a asp-action="Index" class="btn btn-outline-secondary">@Localizer["Cancel"]</a>
+        </div>
+    </form>
+</div>
+
+@section Scripts { <partial name="_ValidationScriptsPartial" /> }

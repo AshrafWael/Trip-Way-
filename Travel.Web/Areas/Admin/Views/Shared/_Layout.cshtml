@@ -1,0 +1,138 @@
+@{
+    var currentCulture = System.Globalization.CultureInfo.CurrentUICulture.Name;
+    var isRtl = currentCulture.StartsWith("ar");
+    var currentController = ViewContext.RouteData.Values["controller"]?.ToString() ?? "";
+
+    string NavClass(string controllerName) =>
+        string.Equals(currentController, controllerName, StringComparison.OrdinalIgnoreCase)
+            ? "nav-link active"
+            : "nav-link";
+}
+<!DOCTYPE html>
+<html lang="@currentCulture" dir="@(isRtl ? "rtl" : "ltr")">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - @Localizer["ControlPanel"]</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/@(isRtl ? "bootstrap.rtl.min.css" : "bootstrap.min.css")" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/admin.css" asp-append-version="true" />
+</head>
+<body class="admin-body">
+    <div class="admin-shell">
+        <aside class="admin-sidebar" id="adminSidebar">
+            <div class="admin-brand">
+                <i class="bi bi-compass"></i> @Localizer["ControlPanel"]
+                <span class="admin-badge">@Localizer["Badge"]</span>
+            </div>
+            <nav class="nav flex-column">
+                <a class="@NavClass("Dashboard")" asp-area="Admin" asp-controller="Dashboard" asp-action="Index"><i class="bi bi-speedometer2"></i> @Localizer["Dashboard"]</a>
+                <a class="@NavClass("Destinations")" asp-area="Admin" asp-controller="Destinations" asp-action="Index"><i class="bi bi-geo-alt"></i> @Localizer["Destinations"]</a>
+                <a class="@NavClass("Packages")" asp-area="Admin" asp-controller="Packages" asp-action="Index"><i class="bi bi-suitcase"></i> @Localizer["Packages"]</a>
+                <a class="@NavClass("Hotels")" asp-area="Admin" asp-controller="Hotels" asp-action="Index"><i class="bi bi-building"></i> @Localizer["AdminNavHotels"]</a>
+                <a class="@NavClass("Bookings")" asp-area="Admin" asp-controller="Bookings" asp-action="Index"><i class="bi bi-journal-check"></i> @Localizer["Bookings"]</a>
+                <a class="@NavClass("HotelBookings")" asp-area="Admin" asp-controller="HotelBookings" asp-action="Index"><i class="bi bi-journal-check"></i> @Localizer["AdminNavHotelBookings"]</a>
+                <a class="@NavClass("Users")" asp-area="Admin" asp-controller="Users" asp-action="Index"><i class="bi bi-people"></i> @Localizer["Users"]</a>
+                <a class="@NavClass("Reviews")" asp-area="Admin" asp-controller="Reviews" asp-action="Index"><i class="bi bi-star"></i> @Localizer["Reviews"]</a>
+                <a class="@NavClass("Blog")" asp-area="Admin" asp-controller="Blog" asp-action="Index"><i class="bi bi-newspaper"></i> @Localizer["Blog"]</a>
+                <a class="@NavClass("ContactMessages")" asp-area="Admin" asp-controller="ContactMessages" asp-action="Index"><i class="bi bi-envelope"></i> @Localizer["ContactMessages"]</a>
+                <a class="@NavClass("Settings")" asp-area="Admin" asp-controller="Settings" asp-action="Index"><i class="bi bi-image"></i> @Localizer["AdminNavSettings"]</a>
+                <hr class="border-secondary" />
+                <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index"><i class="bi bi-box-arrow-left"></i> @Localizer["BackToSite"]</a>
+                <form asp-area="" asp-controller="Account" asp-action="Logout" method="post">
+                    <button type="submit" class="nav-link btn btn-link text-start w-100"><i class="bi bi-power"></i> @Localizer["Logout"]</button>
+                </form>
+            </nav>
+        </aside>
+
+        <div class="admin-sidebar-backdrop" id="adminSidebarBackdrop"></div>
+
+        <div class="admin-main">
+            <header class="admin-topbar">
+                <div class="d-flex align-items-center gap-2">
+                    <button type="button" class="admin-sidebar-toggle" id="adminSidebarToggle"
+                            aria-label="@Localizer["ToggleMenu"]" aria-expanded="false" aria-controls="adminSidebar">
+                        <i class="bi bi-list"></i>
+                    </button>
+                    <h5 class="mb-0">@ViewData["Title"]</h5>
+                </div>
+                <div class="d-flex align-items-center gap-3">
+                    <a class="lang-toggle" title="@(isRtl ? "Switch to English" : "التبديل إلى العربية")"
+                       asp-area="" asp-controller="Language" asp-action="SetLanguage"
+                       asp-route-culture="@(isRtl ? "en-US" : "ar-EG")"
+                       asp-route-returnUrl="@(Context.Request.Path + Context.Request.QueryString)">
+                        <span class="@(!isRtl ? "active" : "")">EN</span>
+                        <span class="@(isRtl ? "active" : "")">AR</span>
+                    </a>
+                    <span class="text-muted">@User.Identity?.Name</span>
+                </div>
+            </header>
+
+            <main class="admin-content">
+                @if (TempData["Success"] is string success)
+                {
+                    <div class="alert alert-success">@success</div>
+                }
+                @if (TempData["Error"] is string error)
+                {
+                    <div class="alert alert-danger">@error</div>
+                }
+                @RenderBody()
+            </main>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        (function () {
+        var toggle = document.getElementById('adminSidebarToggle');
+        var sidebar = document.getElementById('adminSidebar');
+        var backdrop = document.getElementById('adminSidebarBackdrop');
+        if (!toggle || !sidebar || !backdrop) return;
+
+        function closeSidebar() {
+        sidebar.classList.remove('is-open');
+        backdrop.classList.remove('is-open');
+        toggle.setAttribute('aria-expanded', 'false');
+        }
+
+        function openSidebar() {
+        sidebar.classList.add('is-open');
+        backdrop.classList.add('is-open');
+        toggle.setAttribute('aria-expanded', 'true');
+        }
+
+        toggle.addEventListener('click', function () {
+        if (sidebar.classList.contains('is-open')) {
+        closeSidebar();
+        } else {
+        openSidebar();
+        }
+        });
+
+        backdrop.addEventListener('click', closeSidebar);
+
+        // Close after picking a nav link, so navigating doesn't leave
+        // the panel open over the new page.
+        sidebar.querySelectorAll('a, button').forEach(function (el) {
+        el.addEventListener('click', closeSidebar);
+        });
+
+        document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') closeSidebar();
+        });
+
+        // If the viewport is resized past the desktop breakpoint while
+        // open, drop the mobile-only open state.
+        window.addEventListener('resize', function () {
+        if (window.innerWidth >= 992) closeSidebar();
+        });
+        })();
+    </script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

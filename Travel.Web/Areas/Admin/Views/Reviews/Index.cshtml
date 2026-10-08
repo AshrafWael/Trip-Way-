@@ -1,0 +1,46 @@
+@model IReadOnlyList<ReviewDto>
+@{
+    ViewData["Title"] = Localizer["ReviewsPageTitle"];
+}
+
+<div class="stat-card">
+    <table class="table admin-table align-middle mb-0">
+        <thead>
+            <tr><th>@Localizer["Trip"]</th><th>@Localizer["User"]</th><th>@Localizer["Rating"]</th><th>@Localizer["Comment"]</th><th>@Localizer["Status"]</th><th></th></tr>
+        </thead>
+        <tbody>
+            @foreach (var r in Model)
+            {
+                <tr>
+                    <td>@r.PackageTitle</td>
+                    <td>@r.UserFullName</td>
+                    <td class="text-warning">
+                        @for (var i = 0; i < r.Rating; i++) { <i class="bi bi-star-fill"></i> }
+                    </td>
+                    <td class="text-muted small">@r.Comment</td>
+                    <td>
+                        @if (r.IsApproved)
+                        {
+                            <span class="badge bg-success">@Localizer["Approved"]</span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-warning text-dark">@Localizer["PendingReview"]</span>
+                        }
+                    </td>
+                    <td class="text-end d-flex gap-2 justify-content-end">
+                        @if (!r.IsApproved)
+                        {
+                            <form asp-action="Approve" asp-route-id="@r.Id" method="post">
+                                <button type="submit" class="btn btn-sm btn-outline-success"><i class="bi bi-check-lg"></i></button>
+                            </form>
+                        }
+                        <form asp-action="Delete" asp-route-id="@r.Id" method="post" onsubmit="return confirm('@Localizer["ReviewsConfirmDelete"]');">
+                            <button type="submit" class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

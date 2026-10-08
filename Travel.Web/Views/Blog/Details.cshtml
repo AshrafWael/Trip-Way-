@@ -1,0 +1,50 @@
+@model BlogPostDto
+@{
+    ViewData["Title"] = Model.L();
+    var subtitle = Model.LSubtitle();
+    var wordCount = Model.LContent().Split(' ', StringSplitOptions.RemoveEmptyEntries).Length;
+    var readingMinutes = Math.Max(1, (int)Math.Ceiling(wordCount / 200.0));
+}
+
+<section class="hero-section" style="min-height: 320px;">
+    <div class="container hero-text-animate">
+        <h1>@Model.L()</h1>
+        @if (!string.IsNullOrWhiteSpace(subtitle))
+        {
+            <p class="lead fw-bold mb-2">@subtitle</p>
+        }
+        <p class="mb-0">
+            <i class="bi bi-person"></i> @Model.AuthorName
+            &middot; <i class="bi bi-calendar"></i> @(Model.PublishedAt?.ToString("yyyy-MM-dd"))
+            &middot; <i class="bi bi-clock"></i> @readingMinutes @Localizer["MinRead"]
+        </p>
+    </div>
+</section>
+
+<section class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            @if (!string.IsNullOrEmpty(Model.ImageUrl))
+            {
+                <img src="@Model.ImageUrl" class="w-100 rounded-4 mb-4" style="aspect-ratio: 16/9; object-fit: cover;" alt="@Model.L()" />
+            }
+            <div class="fs-5" style="white-space: pre-line;">@Model.LContent()</div>
+
+            @if (Model.Images.Any())
+            {
+                <div class="row g-2 mt-4">
+                    @foreach (var image in Model.Images)
+                    {
+                        <div class="col-4 col-md-3">
+                            <img src="@image.ImageUrl" class="w-100 rounded-3" style="aspect-ratio: 1/1; object-fit: cover;" alt="@Model.L()" />
+                        </div>
+                    }
+                </div>
+            }
+
+            <div class="mt-5">
+                <a asp-action="Index" class="btn btn-outline-brand border"><i class="bi bi-arrow-right"></i> @Localizer["BackToBlog"]</a>
+            </div>
+        </div>
+    </div>
+</section>

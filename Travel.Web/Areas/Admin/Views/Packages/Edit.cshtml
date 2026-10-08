@@ -1,0 +1,124 @@
+@model UpdatePackageDto
+@{
+    ViewData["Title"] = Localizer["PackagesEditTitle"];
+    var destinations = (IReadOnlyList<DestinationDto>)ViewBag.Destinations;
+}
+
+<div class="stat-card" style="max-width: 860px;">
+    <div asp-validation-summary="ModelOnly" class="alert alert-danger d-none-empty"></div>
+    <form asp-action="Edit" asp-route-id="@ViewBag.PackageId" method="post" enctype="multipart/form-data">
+        <div class="row g-3">
+            <div class="col-md-6">
+                <label asp-for="Title" class="form-label fw-bold"></label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger small"></span>
+            </div>
+            <div class="col-md-6">
+                <label asp-for="ArabicTitle" class="form-label fw-bold"></label>
+                <input asp-for="ArabicTitle" class="form-control" />
+            </div>
+            <div class="col-12">
+                <label asp-for="Description" class="form-label fw-bold"></label>
+                <textarea asp-for="Description" class="form-control" rows="3"></textarea>
+            </div>
+            <div class="col-12">
+                <label asp-for="ArabicDescription" class="form-label fw-bold"></label>
+                <textarea asp-for="ArabicDescription" class="form-control" rows="3"></textarea>
+            </div>
+            <div class="col-md-4">
+                <label asp-for="DestinationId" class="form-label fw-bold"></label>
+                <select asp-for="DestinationId" class="form-select">
+                    @foreach (var d in destinations)
+                    {
+                        <option value="@d.Id" selected="@(d.Id == Model.DestinationId)">@d.L()</option>
+                    }
+                </select>
+            </div>
+            <div class="col-md-4">
+                <label asp-for="DurationDays" class="form-label fw-bold"></label>
+                <input asp-for="DurationDays" type="number" class="form-control" />
+            </div>
+            <div class="col-md-4">
+                <label asp-for="DurationNights" class="form-label fw-bold"></label>
+                <input asp-for="DurationNights" type="number" class="form-control" />
+            </div>
+            <div class="col-md-4">
+                <label asp-for="Price" class="form-label fw-bold"></label>
+                <input asp-for="Price" type="number" step="0.01" class="form-control" />
+                <span class="text-muted small">@Localizer["PriceOptionalHint"]</span>
+                <span asp-validation-for="Price" class="text-danger small"></span>
+            </div>
+            <div class="col-md-4">
+                <label asp-for="DiscountPrice" class="form-label fw-bold"></label>
+                <input asp-for="DiscountPrice" type="number" step="0.01" class="form-control" />
+                <span asp-validation-for="DiscountPrice" class="text-danger small"></span>
+            </div>
+            <div class="col-md-4">
+                <label asp-for="MaxTravelers" class="form-label fw-bold"></label>
+                <input asp-for="MaxTravelers" type="number" class="form-control" />
+            </div>
+            <div class="col-md-6">
+                <label asp-for="AvailableSeats" class="form-label fw-bold"></label>
+                <input asp-for="AvailableSeats" type="number" class="form-control" />
+                <span asp-validation-for="AvailableSeats" class="text-danger small"></span>
+            </div>
+            <div class="col-md-6">
+                @if (!string.IsNullOrEmpty(Model.MainImageUrl))
+                {
+                    <label class="form-label fw-bold d-block">@Localizer["CurrentImage"]</label>
+                    <img src="@Model.MainImageUrl" alt="" class="rounded mb-2" style="max-height: 120px;" />
+                }
+                <label class="form-label fw-bold d-block">@Localizer["ChooseImage"]</label>
+                <input type="file" name="mainImageFile" accept="image/*" class="form-control" />
+                <span class="text-muted small">@Localizer["MainImageUrl"]:</span>
+                <input asp-for="MainImageUrl" class="form-control mt-1" />
+            </div>
+            <div class="col-12">
+                @{ var galleryImages = (List<string>)(ViewBag.CurrentGalleryImages ?? new List<string>()); }
+                @if (galleryImages.Any())
+                {
+                    <label class="form-label fw-bold d-block">@Localizer["CurrentGallery"]</label>
+                    <div class="d-flex flex-wrap gap-2 mb-2">
+                        @foreach (var url in galleryImages)
+                        {
+                            <img src="@url" alt="" class="rounded" style="height: 80px; width: 80px; object-fit: cover;" />
+                        }
+                    </div>
+                }
+                <label class="form-label fw-bold d-block">@Localizer["ChooseImages"]</label>
+                <input type="file" name="galleryFiles" accept="image/*" multiple class="form-control" />
+            </div>
+            <div class="col-12">
+                <label class="form-label fw-bold">@Localizer["GalleryImages"]</label>
+                <textarea name="imageUrlsRaw" class="form-control" rows="3">@ViewBag.ImageUrlsRaw</textarea>
+                <span class="text-muted small">@Localizer["GalleryAddHint"]</span>
+            </div>
+            <div class="col-md-6">
+                @if (!string.IsNullOrEmpty(Model.VideoUrl))
+                {
+                    <label class="form-label fw-bold d-block">@Localizer["CurrentVideo"]</label>
+                    <video src="@Model.VideoUrl" controls class="rounded mb-2 d-block" style="max-height: 160px; max-width: 100%;"></video>
+                }
+                <label class="form-label fw-bold d-block">@Localizer["ChooseVideo"]</label>
+                <input type="file" name="videoFile" accept="video/*" class="form-control" />
+                <span class="text-muted small">@Localizer["VideoUrl"]:</span>
+                <input asp-for="VideoUrl" class="form-control mt-1" />
+                <span asp-validation-for="VideoUrl" class="text-danger small"></span>
+            </div>
+            <div class="col-6 form-check">
+                <input asp-for="IsFeatured" class="form-check-input" />
+                <label asp-for="IsFeatured" class="form-check-label"></label>
+            </div>
+            <div class="col-6 form-check">
+                <input asp-for="IsActive" class="form-check-input" />
+                <label asp-for="IsActive" class="form-check-label"></label>
+            </div>
+        </div>
+        <div class="mt-4">
+            <button type="submit" class="btn btn-brand">@Localizer["SaveChanges"]</button>
+            <a asp-action="Index" class="btn btn-outline-secondary">@Localizer["Cancel"]</a>
+        </div>
+    </form>
+</div>
+
+@section Scripts { <partial name="_ValidationScriptsPartial" /> }

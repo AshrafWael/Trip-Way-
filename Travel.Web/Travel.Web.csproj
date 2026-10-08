@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <RootNamespace>Travel.Web</RootNamespace>
+    <UserSecretsId>travel-web-secrets</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!--
+      Travel.Web never talks to SQL Server or Travel.DAL directly.
+      It references Travel.BLL only to reuse the DTO contracts that the
+      API exposes, so the typed ApiClient can deserialize responses into
+      the exact same shapes the API returns.
+    -->
+    <ProjectReference Include="..\Travel.BLL\Travel.BLL.csproj" />
+  </ItemGroup>
+
+</Project>

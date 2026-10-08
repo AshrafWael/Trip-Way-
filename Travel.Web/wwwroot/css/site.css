@@ -1,0 +1,407 @@
+:root {
+    --brand-navy: #0b2545;
+    --brand-blue: #13315c;
+    --brand-teal: #1b998b;
+    --brand-gold: #f4a300;
+}
+
+body {
+    font-family: 'Tajawal', sans-serif;
+    color: #1f2937;
+}
+
+/* ---- Navbar ---- */
+.main-navbar {
+    background: linear-gradient(90deg, var(--brand-navy), var(--brand-blue));
+}
+
+    .main-navbar .nav-link {
+        color: rgba(255, 255, 255, .85);
+        font-weight: 500;
+        border-radius: .5rem;
+        padding: .5rem .85rem;
+        transition: background-color .2s ease, color .2s ease;
+    }
+
+        .main-navbar .nav-link:hover {
+            color: #fff;
+            background: rgba(255, 255, 255, .08);
+        }
+
+        .main-navbar .nav-link.active {
+            color: #fff;
+            background: rgba(255, 255, 255, .16);
+            font-weight: 700;
+        }
+
+    .main-navbar .dropdown-menu {
+        border: none;
+        box-shadow: 0 12px 32px rgba(15, 23, 42, .18);
+        border-radius: .75rem;
+        overflow: hidden;
+    }
+
+    .main-navbar .dropdown-item {
+        padding: .6rem 1.1rem;
+    }
+
+.btn-admin-link {
+    background: var(--brand-gold);
+    color: var(--brand-navy);
+    font-weight: 700;
+    border: none;
+}
+
+    .btn-admin-link:hover {
+        background: #d78f00;
+        color: var(--brand-navy);
+    }
+
+.btn-lang {
+    font-weight: 700;
+}
+
+.lang-toggle {
+    display: inline-flex;
+    align-items: center;
+    border: 1px solid rgba(255, 255, 255, .4);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, .08);
+    padding: .2rem;
+    gap: .15rem;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+    .lang-toggle span {
+        padding: .3rem .7rem;
+        border-radius: 999px;
+        font-size: .75rem;
+        font-weight: 800;
+        color: rgba(255, 255, 255, .6);
+        transition: background-color .2s ease, color .2s ease;
+    }
+
+        .lang-toggle span.active {
+            background: #fff;
+            color: var(--brand-navy);
+        }
+
+/* Booking status badges -- shared with admin.css so the same colors
+   appear whether a booking is viewed on the public Bookings page or in
+   the admin panel. */
+.badge-status-Pending {
+    background: #f59e0b;
+}
+
+.badge-status-Confirmed {
+    background: #2563eb;
+}
+
+.badge-status-Completed {
+    background: #16a34a;
+}
+
+.badge-status-Cancelled {
+    background: #dc2626;
+}
+
+.admin-topbar .lang-toggle {
+    border-color: #d1d5db;
+    background: #f3f4f6;
+}
+
+    .admin-topbar .lang-toggle span {
+        color: #6b7280;
+    }
+
+        .admin-topbar .lang-toggle span.active {
+            background: var(--brand-navy, #0b2545);
+            color: #fff;
+        }
+
+/* ---- Hero ---- */
+.hero-section {
+    position: relative;
+    min-height: 560px;
+    display: flex;
+    align-items: center;
+    background: linear-gradient(rgba(11, 37, 69, .55), rgba(11, 37, 69, .65)), url('/images/hero-placeholder.svg') center/cover no-repeat;
+    color: #fff;
+    overflow: hidden;
+    animation: heroZoom 18s ease-in-out infinite alternate;
+}
+
+@keyframes heroZoom {
+    from {
+        background-size: 100%;
+    }
+
+    to {
+        background-size: 112%;
+    }
+}
+
+.hero-text-animate {
+    animation: heroFadeIn 1s ease-out;
+}
+
+@keyframes heroFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(16px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.hero-section h1 {
+    font-weight: 900;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+}
+
+.hero-search-card {
+    background: #fff;
+    border-radius: 1rem;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, .25);
+    padding: 1.5rem;
+    color: #1f2937;
+}
+
+/* ---- Cards ---- */
+.destination-card, .package-card, .blog-card {
+    border: none;
+    border-radius: 1rem;
+    overflow: hidden;
+    box-shadow: 0 8px 24px rgba(15, 23, 42, .08);
+    transition: transform .25s ease, box-shadow .25s ease;
+    height: 100%;
+}
+
+    .destination-card:hover, .package-card:hover, .blog-card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 20px 40px rgba(15, 23, 42, .15);
+    }
+
+.card-img-wrap {
+    position: relative;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    background: #e5e7eb;
+}
+
+    .card-img-wrap img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+.price-badge {
+    background: var(--brand-teal);
+    color: #fff;
+    border-radius: .5rem;
+    padding: .15rem .6rem;
+    font-weight: 700;
+}
+
+.price-original {
+    text-decoration: line-through;
+    opacity: .6;
+    font-size: .85rem;
+}
+
+/* ---- Section headers ---- */
+.section-title {
+    font-weight: 800;
+    color: var(--brand-navy);
+}
+
+.section-subtitle {
+    color: #6b7280;
+}
+
+/* ---- Why choose us ---- */
+.feature-icon {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: rgba(27, 153, 139, .12);
+    color: var(--brand-teal);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.75rem;
+    margin: 0 auto 1rem;
+}
+
+.contact-info-card {
+    transition: transform .2s ease, box-shadow .2s ease;
+}
+
+    .contact-info-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 24px rgba(0, 0, 0, .1) !important;
+    }
+
+/* ---- Buttons ---- */
+.btn-brand {
+    background: var(--brand-teal);
+    border-color: var(--brand-teal);
+    color: #fff;
+    font-weight: 700;
+}
+
+    .btn-brand:hover {
+        background: #157b70;
+        border-color: #157b70;
+        color: #fff;
+    }
+
+.btn-outline-brand {
+    color: var(--brand-teal);
+    border-color: var(--brand-teal);
+    font-weight: 700;
+}
+
+    .btn-outline-brand:hover {
+        background: var(--brand-teal);
+        color: #fff;
+    }
+
+/* ---- Footer ---- */
+.site-footer {
+    background: var(--brand-navy);
+    color: #fff;
+}
+
+.footer-link {
+    color: rgba(255, 255, 255, .7);
+    text-decoration: none;
+}
+
+    .footer-link:hover {
+        color: #fff;
+    }
+
+/* ---- Empty state ---- */
+.empty-state {
+    padding: 4rem 1rem;
+    text-align: center;
+    color: #6b7280;
+}
+
+/* ---- Validation ---- */
+.validation-summary-valid {
+    display: none;
+}
+
+.field-validation-valid {
+    display: none;
+}
+
+/* ==========================================================================
+   Mobile responsiveness
+   ========================================================================== */
+
+/* Prevent any stray horizontal scroll (hover transforms, hero bg-size, etc.) */
+html, body {
+    overflow-x: hidden;
+}
+
+/* Tablet / collapsed navbar range */
+@media (max-width: 991.98px) {
+    .main-navbar .navbar-collapse {
+        padding-top: .5rem;
+        padding-bottom: .75rem;
+    }
+
+    .main-navbar .navbar-nav .nav-link {
+        padding: .6rem .85rem;
+    }
+
+    .main-navbar ul.navbar-nav.gap-2 {
+        align-items: flex-start !important;
+    }
+
+    .main-navbar .btn-admin-link,
+    .main-navbar .lang-toggle,
+    .main-navbar .btn-outline-light,
+    .main-navbar .btn-warning {
+        margin: .25rem 0;
+    }
+
+    /* Bootstrap anchors this dropdown to the right edge, which can push it
+       past the viewport on narrow screens once the navbar is collapsed. */
+    .main-navbar .dropdown-menu {
+        position: static;
+        box-shadow: none;
+        border: 1px solid rgba(255, 255, 255, .12);
+        background: rgba(255, 255, 255, .04);
+        margin-top: .25rem;
+    }
+
+    .main-navbar .dropdown-item {
+        color: rgba(255, 255, 255, .85);
+    }
+
+        .main-navbar .dropdown-item:hover {
+            color: var(--brand-navy);
+        }
+}
+
+/* Phones */
+@media (max-width: 767.98px) {
+    .hero-section {
+        min-height: 420px;
+        text-align: center;
+    }
+
+        .hero-section h1 {
+            font-size: clamp(1.6rem, 8vw, 2.2rem);
+        }
+
+    .hero-search-card {
+        padding: 1rem;
+    }
+
+    .section-title {
+        font-size: 1.4rem;
+    }
+
+    .feature-icon {
+        width: 52px;
+        height: 52px;
+        font-size: 1.4rem;
+        margin-bottom: .5rem;
+    }
+
+    .destination-card .card-body,
+    .package-card .card-body,
+    .blog-card .card-body {
+        padding: 1rem;
+    }
+}
+
+/* Small phones */
+@media (max-width: 575.98px) {
+    .hero-section {
+        min-height: 340px;
+    }
+
+    .hero-search-card .row > [class^="col-"] {
+        margin-bottom: .5rem;
+    }
+
+    .price-badge,
+    .price-original {
+        font-size: .8rem;
+    }
+
+    .admin-topbar {
+        flex-wrap: wrap;
+        gap: .5rem;
+    }
+}

@@ -1,0 +1,62 @@
+@model IReadOnlyList<HotelDto>
+@{
+    ViewData["Title"] = Localizer["AdminHotelsPageTitle"];
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h5 class="mb-0">@Localizer["AdminHotelsHeading"] (@Model.Count)</h5>
+    <a class="btn btn-brand" asp-action="Create"><i class="bi bi-plus-lg"></i> @Localizer["AdminHotelsNew"]</a>
+</div>
+
+<div class="stat-card">
+    <table class="table admin-table align-middle mb-0">
+        <thead>
+            <tr><th>@Localizer["Name"]</th><th>@Localizer["Destination"]</th><th>@Localizer["TableStars"]</th><th>@Localizer["Price"]</th><th>@Localizer["TableRooms"]</th><th>@Localizer["Status"]</th><th></th></tr>
+        </thead>
+        <tbody>
+            @foreach (var h in Model)
+            {
+                <tr>
+                    <td>@h.L()</td>
+                    <td>@h.DestinationName</td>
+                    <td>@h.StarRating &#9733;</td>
+                    <td>
+                        @if (h.DiscountPricePerNight.HasValue)
+                        {
+                            <span class="text-decoration-line-through text-muted small">@h.PricePerNight.ToUsdOrNull()</span>
+                            <span>@h.DiscountPricePerNight.Value.ToUsd()</span>
+                        }
+                        else if (h.PricePerNight.HasValue)
+                        {
+                            @h.PricePerNight.Value.ToUsd()
+                        }
+                        else
+                        {
+                            <span class="text-muted small">@Localizer["ContactForPrice"]</span>
+                        }
+                    </td>
+                    <td>@h.AvailableRooms / @h.TotalRooms</td>
+                    <td>
+                        @if (h.IsActive)
+                        {
+                            <span class="badge bg-success">@Localizer["Active"]</span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-secondary">@Localizer["Inactive"]</span>
+                        }
+                    </td>
+                    <td class="text-end">
+                        <a class="btn btn-sm btn-outline-secondary" asp-action="Edit" asp-route-id="@h.Id"><i class="bi bi-pencil"></i></a>
+                        @if (h.IsActive)
+                        {
+                            <form asp-action="Delete" asp-route-id="@h.Id" method="post" class="d-inline" onsubmit="return confirm('@Localizer["AdminConfirmDeactivateHotel"]');">
+                                <button type="submit" class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></button>
+                            </form>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,42 @@
+@model IReadOnlyList<DestinationDto>
+@{
+    ViewData["Title"] = Localizer["Destinations"];
+}
+
+<section class="container py-5">
+    <div class="text-center mb-5">
+        <h1 class="section-title">@Localizer["Destinations_PageTitle"]</h1>
+        <p class="section-subtitle">@Localizer["Destinations_PageSubtitle"]</p>
+    </div>
+
+    @if (Model.Any())
+    {
+        <div class="row g-4">
+            @foreach (var destination in Model)
+            {
+                <div class="col-sm-6 col-lg-4">
+                    <div class="card destination-card">
+                        <div class="card-img-wrap">
+                            <img src="@(string.IsNullOrEmpty(destination.ImageUrl) ? "/images/destination-placeholder.svg" : destination.ImageUrl)" alt="@destination.L()" />
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title fw-bold">@destination.L()</h5>
+                            <p class="text-muted mb-2"><i class="bi bi-geo-alt"></i> @destination.City, @destination.Country</p>
+                            <p class="text-muted small mb-3">@destination.PackageCount @Localizer["PackagesAvailable"]</p>
+                            <a asp-controller="Destinations" asp-action="Details" asp-route-id="@destination.Id" class="btn btn-outline-brand btn-sm border">
+                                @Localizer["Explore"] <i class="bi bi-arrow-left"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="empty-state">
+            <i class="bi bi-map fs-1"></i>
+            <p class="mt-2">@Localizer["NoDestinations"]</p>
+        </div>
+    }
+</section>

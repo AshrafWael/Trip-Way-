@@ -1,0 +1,13 @@
+{
+  "profiles": {
+    "Travel.API": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "launchUrl": "swagger",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:57576;http://localhost:57578"
+    }
+  }
+}

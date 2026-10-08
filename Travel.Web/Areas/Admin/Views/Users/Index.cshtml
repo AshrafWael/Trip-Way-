@@ -1,0 +1,48 @@
+@model IReadOnlyList<UserSummaryDto>
+@{
+    ViewData["Title"] = Localizer["UsersPageTitle"];
+}
+
+<div class="stat-card">
+    <table class="table admin-table align-middle mb-0">
+        <thead><tr><th>@Localizer["Name"]</th><th>@Localizer["TableEmail"]</th><th>@Localizer["Role"]</th><th>@Localizer["Joined"]</th><th>@Localizer["Status"]</th><th></th></tr></thead>
+        <tbody>
+            @foreach (var u in Model)
+            {
+                <tr>
+                    <td>@u.FullName</td>
+                    <td>@u.Email</td>
+                    <td>@string.Join(", ", u.Roles)</td>
+                    <td>@u.CreatedAt.ToString("yyyy-MM-dd")</td>
+                    <td>
+                        @if (u.IsLockedOut)
+                        {
+                            <span class="badge bg-danger">@Localizer["Locked"]</span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-success">@Localizer["UsersActive"]</span>
+                        }
+                    </td>
+                    <td class="text-end">
+                        @if (!u.Roles.Contains("Admin"))
+                        {
+                            @if (u.IsLockedOut)
+                            {
+                                <form asp-action="Unlock" asp-route-id="@u.Id" method="post" class="d-inline">
+                                    <button type="submit" class="btn btn-sm btn-outline-success">@Localizer["Unlock"]</button>
+                                </form>
+                            }
+                            else
+                            {
+                                <form asp-action="Lock" asp-route-id="@u.Id" method="post" class="d-inline" onsubmit="return confirm('@Localizer["ConfirmLock"]');">
+                                    <button type="submit" class="btn btn-sm btn-outline-danger">@Localizer["Lock"]</button>
+                                </form>
+                            }
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

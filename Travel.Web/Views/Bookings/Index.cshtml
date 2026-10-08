@@ -1,0 +1,156 @@
+@using Travel.Web.Helpers
+@model Travel.Web.ViewModels.Bookings.MyBookingsViewModel
+@{
+    ViewData["Title"] = Localizer["Bookings_PageTitle"];
+    var whatsAppCtaUrl = TempData["WhatsAppUrl"] as string;
+}
+
+<section class="container py-5">
+    @if (!string.IsNullOrEmpty(whatsAppCtaUrl))
+    {
+        <div class="card border-0 shadow-sm p-4 mb-4" style="background: #e9fbf0;">
+            <div class="d-flex align-items-center justify-content-between flex-wrap gap-3">
+                <div>
+                    <h5 class="fw-bold mb-1"><i class="bi bi-check-circle text-success"></i> @Localizer["WhatsAppCtaHeading"]</h5>
+                    <p class="text-muted mb-0">@Localizer["WhatsAppCtaBody"]</p>
+                </div>
+                <a href="@whatsAppCtaUrl" target="_blank" rel="noopener" class="btn btn-lg" style="background:#25D366; color:#fff; white-space: nowrap;">
+                    <i class="bi bi-whatsapp"></i> @Localizer["ContinueOnWhatsApp"]
+                </a>
+            </div>
+        </div>
+    }
+
+    <h1 class="section-title mb-4">@Localizer["Bookings_PageTitle"]</h1>
+
+    @if (Model.PackageBookings.Any())
+    {
+        <div class="row g-3">
+            @foreach (var booking in Model.PackageBookings)
+            {
+                var whatsAppUrl = WhatsAppHelper.BuildChatUrl(Model.WhatsAppNumber,
+                    string.Format(Localizer["WhatsAppBookingMessage"].Value, booking.PackageTitle, booking.Id));
+                <div class="col-12">
+                    <div class="card shadow-sm border-0 p-3">
+                        <div class="row align-items-center g-3">
+                            <div class="col-md-2">
+                                <img src="@(string.IsNullOrEmpty(booking.PackageImageUrl) ? "/images/package-placeholder.svg" : booking.PackageImageUrl)"
+                                     class="rounded w-100" style="aspect-ratio: 4/3; object-fit: cover;" alt="@booking.PackageTitle" />
+                            </div>
+                            <div class="col-md-4">
+                                <h6 class="fw-bold mb-1">@booking.PackageTitle</h6>
+                                <p class="text-muted small mb-0"><i class="bi bi-calendar"></i> @Localizer["Travel"]: @booking.TravelDate.ToString("yyyy-MM-dd")</p>
+                                <p class="text-muted small mb-0"><i class="bi bi-people"></i> @booking.NumberOfTravelers @Localizer["TravelerSuffix"]</p>
+                            </div>
+                            <div class="col-md-2">
+                                <span class="fw-bold">@booking.TotalPrice.ToUsd()</span>
+                            </div>
+                            <div class="col-md-2">
+                                <span class="badge badge-status-@booking.Status">@Localizer[$"{booking.Status}"]</span>
+                            </div>
+                            <div class="col-md-2 text-md-end d-flex flex-column gap-1 align-items-md-end">
+                                @if (booking.Status == BookingStatus.Pending && !string.IsNullOrEmpty(whatsAppUrl))
+                                {
+                                    <a href="@whatsAppUrl" target="_blank" rel="noopener" class="btn btn-sm" style="background:#25D366; color:#fff;">
+                                        <i class="bi bi-whatsapp"></i> @Localizer["ChatOnWhatsApp"]
+                                    </a>
+                                }
+                                @if (booking.Status == BookingStatus.Pending || booking.Status == BookingStatus.Confirmed)
+                                {
+                                    <form asp-action="Cancel" asp-route-id="@booking.Id" method="post" onsubmit="return confirm('@Localizer["ConfirmCancel"]');">
+                                        <button type="submit" class="btn btn-outline-danger btn-sm">@Localizer["CancelBooking"]</button>
+                                    </form>
+                                }
+                                else if (booking.Status == BookingStatus.Completed)
+                                {
+                                    <a class="btn btn-outline-brand btn-sm border" asp-controller="Reviews" asp-action="Create" asp-route-packageId="@booking.TravelPackageId">
+                                        <i class="bi bi-star"></i> @Localizer["AddReview"]
+                                    </a>
+                                }
+                            </div>
+                        </div>
+                        @if (!string.IsNullOrWhiteSpace(booking.SpecialRequests))
+                        {
+                            <p class="text-muted small mt-2 mb-0 border-top pt-2">
+                                <i class="bi bi-chat-left-text"></i> @booking.SpecialRequests
+                            </p>
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="empty-state">
+            <i class="bi bi-journal-x fs-1"></i>
+            <p class="mt-2">@Localizer["NoBookingsYet"]</p>
+            <a asp-controller="Packages" asp-action="Index" class="btn btn-brand mt-2">@Localizer["ExplorePackages"]</a>
+        </div>
+    }
+
+    <h2 class="section-title fs-3 mt-5 mb-4">@Localizer["MyHotelReservations"]</h2>
+
+    @if (Model.HotelBookings.Any())
+    {
+        <div class="row g-3">
+            @foreach (var booking in Model.HotelBookings)
+            {
+                var whatsAppUrl = WhatsAppHelper.BuildChatUrl(Model.WhatsAppNumber,
+                    string.Format(Localizer["WhatsAppBookingMessage"].Value, booking.HotelName, booking.Id));
+                <div class="col-12">
+                    <div class="card shadow-sm border-0 p-3">
+                        <div class="row align-items-center g-3">
+                            <div class="col-md-2">
+                                <img src="@(string.IsNullOrEmpty(booking.HotelImageUrl) ? "/images/package-placeholder.svg" : booking.HotelImageUrl)"
+                                     class="rounded w-100" style="aspect-ratio: 4/3; object-fit: cover;" alt="@booking.HotelName" />
+                            </div>
+                            <div class="col-md-4">
+                                <h6 class="fw-bold mb-1">@booking.HotelName</h6>
+                                <p class="text-muted small mb-0">
+                                    <i class="bi bi-calendar-check"></i> @booking.CheckInDate.ToString("yyyy-MM-dd")
+                                    &rarr; @booking.CheckOutDate.ToString("yyyy-MM-dd")
+                                </p>
+                                <p class="text-muted small mb-0"><i class="bi bi-door-open"></i> @booking.NumberOfRooms @Localizer["RoomsSuffix"] &middot; <i class="bi bi-people"></i> @booking.NumberOfGuests @Localizer["GuestsSuffix"]</p>
+                            </div>
+                            <div class="col-md-2">
+                                <span class="fw-bold">@booking.TotalPrice.ToUsd()</span>
+                            </div>
+                            <div class="col-md-2">
+                                <span class="badge badge-status-@booking.Status">@Localizer[$"{booking.Status}"]</span>
+                            </div>
+                            <div class="col-md-2 text-md-end d-flex flex-column gap-1 align-items-md-end">
+                                @if (booking.Status == BookingStatus.Pending && !string.IsNullOrEmpty(whatsAppUrl))
+                                {
+                                    <a href="@whatsAppUrl" target="_blank" rel="noopener" class="btn btn-sm" style="background:#25D366; color:#fff;">
+                                        <i class="bi bi-whatsapp"></i> @Localizer["ChatOnWhatsApp"]
+                                    </a>
+                                }
+                                @if (booking.Status == BookingStatus.Pending || booking.Status == BookingStatus.Confirmed)
+                                {
+                                    <form asp-action="CancelHotel" asp-route-id="@booking.Id" method="post" onsubmit="return confirm('@Localizer["ConfirmCancel"]');">
+                                        <button type="submit" class="btn btn-outline-danger btn-sm">@Localizer["CancelBooking"]</button>
+                                    </form>
+                                }
+                            </div>
+                        </div>
+                        @if (!string.IsNullOrWhiteSpace(booking.SpecialRequests))
+                        {
+                            <p class="text-muted small mt-2 mb-0 border-top pt-2">
+                                <i class="bi bi-chat-left-text"></i> @booking.SpecialRequests
+                            </p>
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="empty-state">
+            <i class="bi bi-building"></i>
+            <p class="mt-2">@Localizer["NoHotelBookingsYet"]</p>
+            <a asp-controller="Hotels" asp-action="Index" class="btn btn-brand mt-2">@Localizer["ExploreHotels"]</a>
+        </div>
+    }
+</section>

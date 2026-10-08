@@ -1,0 +1,114 @@
+@model Travel.Web.ViewModels.Home.ContactViewModel
+@{
+    ViewData["Title"] = Localizer["Contact_PageTitle"];
+    var settings = ViewBag.Settings as SiteSettingsDto;
+    var isArabic = LocalizedContentExtensions.IsArabic;
+    var address = (settings is null ? null : isArabic ? settings.ArabicContactAddress : settings.ContactAddress) ?? Localizer["Address"].Value;
+    var hours = (settings is null ? null : isArabic ? settings.ArabicContactHours : settings.ContactHours) ?? Localizer["WorkingHours"].Value;
+    var phone = settings?.ContactPhone ?? "19XXX";
+    var email = settings?.ContactEmail ?? "info@example.com";
+    var whatsAppUrl = Travel.Web.Helpers.WhatsAppHelper.BuildChatUrl(settings?.WhatsAppNumber, Localizer["WhatsAppGeneralMessage"].Value);
+}
+
+<section class="hero-section" style="min-height: 280px;">
+    <div class="container text-center hero-text-animate">
+        <h1>@Localizer["Contact_PageTitle"]</h1>
+        <p class="lead mb-0">@Localizer["Contact_PageSubtitle"]</p>
+    </div>
+</section>
+
+<section class="container pt-4">
+    <img src="/images/contact-banner.svg" alt="" class="w-100 rounded-4" style="max-height: 220px; object-fit: cover;" />
+</section>
+
+<section class="container py-5">
+    <div class="row row-cols-2 row-cols-lg-5 g-3 mb-5">
+        <div class="col">
+            <a href="tel:@phone" class="text-decoration-none">
+                <div class="card border-0 shadow-sm text-center p-4 h-100 contact-info-card">
+                    <div class="feature-icon mx-auto"><i class="bi bi-telephone"></i></div>
+                    <h6 class="fw-bold mt-2 mb-1">@Localizer["ContactPhone"]</h6>
+                    <p class="text-muted small mb-0">@phone</p>
+                </div>
+            </a>
+        </div>
+        <div class="col">
+            <a href="mailto:@email" class="text-decoration-none">
+                <div class="card border-0 shadow-sm text-center p-4 h-100 contact-info-card">
+                    <div class="feature-icon mx-auto"><i class="bi bi-envelope"></i></div>
+                    <h6 class="fw-bold mt-2 mb-1">@Localizer["ContactEmail"]</h6>
+                    <p class="text-muted small mb-0">@email</p>
+                </div>
+            </a>
+        </div>
+        @if (!string.IsNullOrEmpty(whatsAppUrl))
+        {
+            <div class="col">
+                <a href="@whatsAppUrl" target="_blank" rel="noopener" class="text-decoration-none">
+                    <div class="card border-0 shadow-sm text-center p-4 h-100 contact-info-card">
+                        <div class="feature-icon mx-auto" style="background:#e9fbf0; color:#25D366;"><i class="bi bi-whatsapp"></i></div>
+                        <h6 class="fw-bold mt-2 mb-1">@Localizer["WhatsAppNumber"]</h6>
+                        <p class="text-muted small mb-0">@settings!.WhatsAppNumber</p>
+                    </div>
+                </a>
+            </div>
+        }
+        <div class="col">
+            <div class="card border-0 shadow-sm text-center p-4 h-100">
+                <div class="feature-icon mx-auto"><i class="bi bi-geo-alt"></i></div>
+                <h6 class="fw-bold mt-2 mb-1">@Localizer["Address"]</h6>
+                <p class="text-muted small mb-0">@address</p>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card border-0 shadow-sm text-center p-4 h-100">
+                <div class="feature-icon mx-auto"><i class="bi bi-clock"></i></div>
+                <h6 class="fw-bold mt-2 mb-1">@Localizer["WorkingHours"]</h6>
+                <p class="text-muted small mb-0">@hours</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card shadow-sm border-0 p-4">
+                <h4 class="fw-bold mb-1">@Localizer["SendMessage"]</h4>
+                <p class="text-muted small mb-4">@Localizer["Contact_PageSubtitle"]</p>
+
+                <div asp-validation-summary="ModelOnly" class="alert alert-danger d-none-empty"></div>
+
+                <form asp-action="Index" method="post">
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label asp-for="Name" class="form-label fw-bold"></label>
+                            <input asp-for="Name" class="form-control" />
+                            <span asp-validation-for="Name" class="text-danger small"></span>
+                        </div>
+                        <div class="col-md-6">
+                            <label asp-for="Email" class="form-label fw-bold"></label>
+                            <input asp-for="Email" class="form-control" />
+                            <span asp-validation-for="Email" class="text-danger small"></span>
+                        </div>
+                        <div class="col-md-6">
+                            <label asp-for="Phone" class="form-label fw-bold"></label>
+                            <input asp-for="Phone" class="form-control" />
+                        </div>
+                        <div class="col-md-6">
+                            <label asp-for="Subject" class="form-label fw-bold"></label>
+                            <input asp-for="Subject" class="form-control" />
+                            <span asp-validation-for="Subject" class="text-danger small"></span>
+                        </div>
+                        <div class="col-12">
+                            <label asp-for="Message" class="form-label fw-bold"></label>
+                            <textarea asp-for="Message" class="form-control" rows="4"></textarea>
+                            <span asp-validation-for="Message" class="text-danger small"></span>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-brand mt-4 px-4 py-2">@Localizer["SendMessage"]</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts { <partial name="_ValidationScriptsPartial" /> }

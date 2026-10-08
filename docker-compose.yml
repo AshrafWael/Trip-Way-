@@ -1,0 +1,53 @@
+version: "3.9"
+
+services:
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    environment:
+      ACCEPT_EULA: "Y"
+      # Change this -- it's only a placeholder for local docker-compose use,
+      # never a real credential. Override via a .env file, not by editing
+      # this line, if you check this file into source control.
+      MSSQL_SA_PASSWORD: "${DB_SA_PASSWORD:?set DB_SA_PASSWORD in your .env file}"
+    ports:
+      - "1433:1433"
+    volumes:
+      - sqlserver-data:/var/opt/mssql
+    healthcheck:
+      test: ["CMD-SHELL", "/opt/mssql-tools18/bin/sqlcmd -C -S localhost -U sa -P \"$$MSSQL_SA_PASSWORD\" -Q 'SELECT 1' || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  travel-api:
+    build:
+      context: .
+      dockerfile: Travel.API/Dockerfile
+    depends_on:
+      sqlserver:
+        condition: service_healthy
+    environment:
+      ASPNETCORE_ENVIRONMENT: "Production"
+      ConnectionStrings__DefaultConnection: "Server=sqlserver;Database=TravelDb;User Id=sa;Password=${DB_SA_PASSWORD};TrustServerCertificate=True"
+      JwtSettings__Secret: "${JWT_SECRET:?set JWT_SECRET in your .env file}"
+      JwtSettings__Issuer: "TravelApi"
+      JwtSettings__Audience: "TravelClient"
+      SeedAdmin__Email: "${SEED_ADMIN_EMAIL:?set SEED_ADMIN_EMAIL in your .env file}"
+      SeedAdmin__Password: "${SEED_ADMIN_PASSWORD:?set SEED_ADMIN_PASSWORD in your .env file}"
+    ports:
+      - "8081:8080"
+
+  travel-web:
+    build:
+      context: .
+      dockerfile: Travel.Web/Dockerfile
+    depends_on:
+      - travel-api
+    environment:
+      ASPNETCORE_ENVIRONMENT: "Production"
+      ApiSettings__BaseUrl: "http://travel-api:8080/"
+    ports:
+      - "8080:8080"
+
+volumes:
+  sqlserver-data:

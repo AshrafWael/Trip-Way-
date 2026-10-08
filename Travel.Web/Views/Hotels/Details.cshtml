@@ -1,0 +1,180 @@
+@model HotelDetailsDto
+@{
+    ViewData["Title"] = Model.L();
+    var unitPrice = Model.DiscountPricePerNight ?? Model.PricePerNight;
+    var hasPrice = unitPrice.HasValue;
+}
+
+<section class="container py-5">
+    <div class="row g-5">
+        <div class="col-lg-8">
+            @if (Model.Images.Any())
+            {
+                <div id="hotelGallery" class="carousel slide rounded-4 overflow-hidden shadow-sm mb-4" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                        @for (var i = 0; i < Model.Images.Count; i++)
+                        {
+                            <div class="carousel-item @(i == 0 ? "active" : "")" style="aspect-ratio: 16/9; background: #e5e7eb;">
+                                <img src="@Model.Images[i].ImageUrl" class="d-block w-100 h-100" style="object-fit: cover;" alt="@Model.L()" />
+                            </div>
+                        }
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#hotelGallery" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon"></span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#hotelGallery" data-bs-slide="next">
+                        <span class="carousel-control-next-icon"></span>
+                    </button>
+                </div>
+            }
+            else
+            {
+                <div class="rounded-4 mb-4" style="aspect-ratio: 16/9; background: #e5e7eb;">
+                    <img src="@(string.IsNullOrEmpty(Model.MainImageUrl) ? "/images/package-placeholder.svg" : Model.MainImageUrl)" class="w-100 h-100 rounded-4" style="object-fit: cover;" alt="@Model.L()" />
+                </div>
+            }
+
+            <p class="text-muted mb-1"><i class="bi bi-geo-alt"></i> @Model.DestinationName &middot; @Model.LAddress()</p>
+            <h1 class="fw-bold mb-3">@Model.L()</h1>
+
+            <div class="d-flex flex-wrap gap-3 mb-4 text-muted">
+                <span>
+                    @for (var s = 0; s < Model.StarRating; s++) { <i class="bi bi-star-fill text-warning"></i> }
+                </span>
+                <span><i class="bi bi-door-open"></i> @Model.AvailableRooms @Localizer["RoomsAvailable"]</span>
+            </div>
+
+            <h5 class="fw-bold">@Localizer["AboutThisHotel"]</h5>
+            <p class="fs-6">@Model.LDescription()</p>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="card shadow-sm border-0 p-4" style="position: sticky; top: 90px;">
+                <div class="d-flex align-items-baseline gap-2 mb-1">
+                    @if (Model.DiscountPricePerNight.HasValue)
+                    {
+                        <span class="price-original fs-6">@Model.PricePerNight.ToUsdOrNull()</span>
+                        <span class="fs-3 fw-bold" style="color: var(--brand-teal);">@unitPrice.ToUsdOrNull()</span>
+                        <span class="text-muted small">/ @Localizer["PerNight"]</span>
+                    }
+                    else if (hasPrice)
+                    {
+                        <span class="fs-3 fw-bold" style="color: var(--brand-teal);">@unitPrice.ToUsdOrNull()</span>
+                        <span class="text-muted small">/ @Localizer["PerNight"]</span>
+                    }
+                    else
+                    {
+                        <span class="fs-5 fw-bold text-muted">@Localizer["ContactForPrice"]</span>
+                    }
+                </div>
+
+                @if (User.Identity?.IsAuthenticated == true)
+                {
+                    <form asp-controller="Hotels" asp-action="Reserve" method="post" id="reservationForm" class="mt-3">
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" name="HotelId" value="@Model.Id" />
+
+                        <div class="mb-3">
+                            <label class="form-label small fw-bold">@Localizer["CheckInDate"]</label>
+                            <input type="date" name="CheckInDate" id="checkInDate" class="form-control"
+                                   required min="@DateTime.Today.ToString("yyyy-MM-dd")" />
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label small fw-bold">@Localizer["CheckOutDate"]</label>
+                            <input type="date" name="CheckOutDate" id="checkOutDate" class="form-control"
+                                   required min="@DateTime.Today.AddDays(1).ToString("yyyy-MM-dd")" />
+                        </div>
+
+                        <div class="row g-2 mb-3">
+                            <div class="col-6">
+                                <label class="form-label small fw-bold">@Localizer["NumberOfRooms"]</label>
+                                <input type="number" name="NumberOfRooms" id="numRooms" class="form-control"
+                                       value="1" min="1" max="@Model.AvailableRooms"
+                                       data-unit-price="@(unitPrice ?? 0m).ToString("F2", System.Globalization.CultureInfo.InvariantCulture)"
+                                       data-has-price="@hasPrice.ToString().ToLowerInvariant()" required />
+                            </div>
+                            <div class="col-6">
+                                <label class="form-label small fw-bold">@Localizer["NumberOfGuests"]</label>
+                                <input type="number" name="NumberOfGuests" class="form-control" value="1" min="1" required />
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label small fw-bold">@Localizer["SpecialRequests"]</label>
+                            <textarea name="SpecialRequests" class="form-control" rows="2"></textarea>
+                        </div>
+
+                        <div class="d-flex justify-content-between fw-bold fs-5 mb-3 pt-2 border-top">
+                            <span>@Localizer["Total"]</span>
+                            <span id="totalPrice">@(hasPrice ? unitPrice.ToUsdOrNull() : Localizer["ContactForPrice"].Value)</span>
+                        </div>
+                        @if (!hasPrice)
+                        {
+                            <p class="text-muted small">@Localizer["PriceViaWhatsAppHint"]</p>
+                        }
+
+                        <button type="submit" class="btn btn-brand w-100 py-2" @(Model.AvailableRooms == 0 ? "disabled" : "")>
+                            @(Model.AvailableRooms == 0 ? Localizer["NoRoomsAvailable"] : Localizer["ReserveNow"])
+                        </button>
+                    </form>
+                }
+                else
+                {
+                    <div class="mt-3">
+                        <p class="text-muted small">@Localizer["LoginPrompt"]</p>
+                        <a class="btn btn-brand w-100 py-2" asp-controller="Account" asp-action="Login" asp-route-returnUrl="@Url.Action("Details", "Hotels", new { id = Model.Id })">
+                            @Localizer["LoginToBook"]
+                        </a>
+                    </div>
+                }
+
+                @{
+                    var hotelWhatsAppUrl = Travel.Web.Helpers.WhatsAppHelper.BuildChatUrl(
+                        ViewBag.WhatsAppNumber as string,
+                        string.Format(Localizer["WhatsAppAskMessage"].Value, Model.L()));
+                }
+                @if (!string.IsNullOrEmpty(hotelWhatsAppUrl))
+                {
+                    <a href="@hotelWhatsAppUrl" target="_blank" rel="noopener" class="btn w-100 py-2 mt-2" style="background:#25D366; color:#fff;">
+                        <i class="bi bi-whatsapp"></i> @Localizer["AskOnWhatsApp"]
+                    </a>
+                }
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    <script>
+        // Recalculates the total price live as rooms/nights change.
+        const checkIn = document.getElementById('checkInDate');
+        const checkOut = document.getElementById('checkOutDate');
+        const numRooms = document.getElementById('numRooms');
+        const totalPriceEl = document.getElementById('totalPrice');
+
+        function formatCurrency(value) {
+            return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(value);
+        }
+
+        function recalcTotal() {
+            if (numRooms.dataset.hasPrice !== 'true') return;
+            const unitPrice = parseFloat(numRooms.dataset.unitPrice || '0');
+            const rooms = parseInt(numRooms.value || '1', 10);
+            const inDate = new Date(checkIn.value);
+            const outDate = new Date(checkOut.value);
+            const nights = Math.max(Math.round((outDate - inDate) / (1000 * 60 * 60 * 24)), 0);
+            totalPriceEl.textContent = formatCurrency(unitPrice * Math.max(rooms, 1) * Math.max(nights, 1));
+        }
+
+        checkIn?.addEventListener('change', () => {
+            // Keep check-out at least one day after check-in.
+            const minOut = new Date(checkIn.value);
+            minOut.setDate(minOut.getDate() + 1);
+            checkOut.min = minOut.toISOString().split('T')[0];
+            recalcTotal();
+        });
+        checkOut?.addEventListener('change', recalcTotal);
+        numRooms?.addEventListener('input', recalcTotal);
+    </script>
+}

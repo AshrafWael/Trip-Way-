@@ -1,0 +1,133 @@
+@model Travel.Web.ViewModels.Packages.PackageListViewModel
+@{
+    ViewData["Title"] = Localizer["Packages"];
+    var sp = Model.SearchParams;
+}
+
+<section class="container py-5">
+    <div class="row g-4">
+        <div class="col-lg-3">
+            <div class="card border-0 shadow-sm p-3">
+                <h5 class="fw-bold mb-3">@Localizer["FilterResults"]</h5>
+                <form method="get" asp-action="Index">
+                    <div class="mb-3">
+                        <label class="form-label small fw-bold">@Localizer["Search"]</label>
+                        <input type="text" name="search" value="@sp.Search" class="form-control" placeholder="@Localizer["SearchPlaceholder"]" />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label small fw-bold">@Localizer["Destination"]</label>
+                        <select name="destinationId" class="form-select">
+                            <option value="">@Localizer["AllDestinations"]</option>
+                            @foreach (var d in Model.Destinations)
+                            {
+                                <option value="@d.Id" selected="@(sp.DestinationId == d.Id)">@d.L()</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="row g-2 mb-3">
+                        <div class="col-6">
+                            <label class="form-label small fw-bold">@Localizer["PriceFrom"]</label>
+                            <input type="number" name="minPrice" value="@sp.MinPrice" class="form-control" />
+                        </div>
+                        <div class="col-6">
+                            <label class="form-label small fw-bold">@Localizer["PriceTo"]</label>
+                            <input type="number" name="maxPrice" value="@sp.MaxPrice" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label small fw-bold">@Localizer["Travelers"]</label>
+                        <input type="number" name="travelers" value="@sp.Travelers" min="1" class="form-control" placeholder="@Localizer["AnyNumber"]" />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label small fw-bold">@Localizer["SortBy"]</label>
+                        <select name="sortBy" class="form-select">
+                            <option value="">@Localizer["SortFeatured"]</option>
+                            <option value="price_asc" selected="@(sp.SortBy == "price_asc")">@Localizer["SortPriceAsc"]</option>
+                            <option value="price_desc" selected="@(sp.SortBy == "price_desc")">@Localizer["SortPriceDesc"]</option>
+                            <option value="newest" selected="@(sp.SortBy == "newest")">@Localizer["SortNewest"]</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-brand w-100">@Localizer["ApplyFilters"]</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="col-lg-9">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h1 class="section-title fs-3 mb-0">@Localizer["AvailablePackages"]</h1>
+                <span class="text-muted">@Model.Result.TotalCount @Localizer["ResultsCount"]</span>
+            </div>
+
+            @if (Model.Result.Items.Any())
+            {
+                <div class="row g-4">
+                    @foreach (var package in Model.Result.Items)
+                    {
+                        <div class="col-sm-6 col-xl-4">
+                            <div class="card package-card">
+                                <div class="card-img-wrap">
+                                    <img src="@(string.IsNullOrEmpty(package.MainImageUrl) ? "/images/package-placeholder.svg" : package.MainImageUrl)" alt="@package.L()" />
+                                </div>
+                                <div class="card-body">
+                                    <p class="text-muted small mb-1"><i class="bi bi-geo-alt"></i> @package.DestinationName</p>
+                                    <h5 class="card-title fw-bold">@package.L()</h5>
+                                    <p class="text-muted small mb-2">
+                                        <i class="bi bi-clock"></i> @package.DurationDays @Localizer["Days"] / @package.DurationNights @Localizer["Nights"]
+                                        &middot; <i class="bi bi-star-fill text-warning"></i> @package.AverageRating.ToString("0.0") (@package.ReviewCount)
+                                    </p>
+                                    <div class="d-flex align-items-center gap-2 mb-3">
+                                        @if (package.DiscountPrice.HasValue)
+                                        {
+                                            <span class="price-original">@package.Price.ToUsdOrNull()</span>
+                                            <span class="price-badge">@package.DiscountPrice.Value.ToUsd()</span>
+                                        }
+                                        else if (package.Price.HasValue)
+                                        {
+                                            <span class="price-badge">@package.Price.Value.ToUsd()</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="text-muted small">@Localizer["ContactForPrice"]</span>
+                                        }
+                                    </div>
+                                    <a asp-controller="Packages" asp-action="Details" asp-route-id="@package.Id" class="btn btn-brand btn-sm w-100">
+                                        @Localizer["ViewDetails"]
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+
+                @if (Model.Result.TotalPages > 1)
+                {
+                    <nav class="mt-4">
+                        <ul class="pagination justify-content-center">
+                            @for (var p = 1; p <= Model.Result.TotalPages; p++)
+                            {
+                                <li class="page-item @(p == Model.Result.PageNumber ? "active" : "")">
+                                    <a class="page-link"
+                                       asp-action="Index"
+                                       asp-route-pageNumber="@p"
+                                       asp-route-search="@sp.Search"
+                                       asp-route-destinationId="@sp.DestinationId"
+                                       asp-route-minPrice="@sp.MinPrice"
+                                       asp-route-maxPrice="@sp.MaxPrice"
+                                       asp-route-travelers="@sp.Travelers"
+                                       asp-route-sortBy="@sp.SortBy">@p</a>
+                                </li>
+                            }
+                        </ul>
+                    </nav>
+                }
+            }
+            else
+            {
+                <div class="empty-state">
+                    <i class="bi bi-suitcase fs-1"></i>
+                    <p class="mt-2">@Localizer["NoMatching"]</p>
+                </div>
+            }
+        </div>
+    </div>
+</section>

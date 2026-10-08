@@ -1,0 +1,145 @@
+@using Microsoft.AspNetCore.Localization
+@{
+    var currentCulture = System.Globalization.CultureInfo.CurrentUICulture.Name;
+    var isRtl = currentCulture.StartsWith("ar");
+    var currentController = ViewContext.RouteData.Values["controller"]?.ToString() ?? "";
+
+    string NavClass(string controllerName) =>
+        string.Equals(currentController, controllerName, StringComparison.OrdinalIgnoreCase)
+            ? "nav-link active"
+            : "nav-link";
+}
+<!DOCTYPE html>
+<html lang="@currentCulture" dir="@(isRtl ? "rtl" : "ltr")">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - رحلات | Travel</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/@(isRtl ? "bootstrap.rtl.min.css" : "bootstrap.min.css")" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark sticky-top main-navbar">
+            <div class="container">
+                <a class="navbar-brand fw-bold" asp-controller="Home" asp-action="Index">
+                    <i class="bi bi-compass"></i> رحلات
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="mainNav">
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0 gap-lg-2">
+                        <li class="nav-item"><a class="@NavClass("Home")" asp-controller="Home" asp-action="Index">@Localizer["Home"]</a></li>
+                        <li class="nav-item"><a class="@NavClass("Destinations")" asp-controller="Destinations" asp-action="Index">@Localizer["Destinations"]</a></li>
+                        <li class="nav-item"><a class="@NavClass("Packages")" asp-controller="Packages" asp-action="Index">@Localizer["Packages"]</a></li>
+                        <li class="nav-item"><a class="@NavClass("Hotels")" asp-controller="Hotels" asp-action="Index">@Localizer["Hotels"]</a></li>
+                        <li class="nav-item"><a class="@NavClass("Blog")" asp-controller="Blog" asp-action="Index">@Localizer["Blog"]</a></li>
+                        <li class="nav-item"><a class="@NavClass("Contact")" asp-controller="Contact" asp-action="Index">@Localizer["Contact"]</a></li>
+                    </ul>
+                    <ul class="navbar-nav gap-2 align-items-lg-center">
+                        @if (User.Identity?.IsAuthenticated == true)
+                        {
+                            <li class="nav-item"><a class="@NavClass("Bookings")" asp-controller="Bookings" asp-action="Index"><i class="bi bi-journal-check d-lg-none"></i> @Localizer["MyBookings"]</a></li>
+                            <li class="nav-item"><a class="@NavClass("Wishlist")" asp-controller="Wishlist" asp-action="Index"><i class="bi bi-heart d-lg-none"></i> @Localizer["Wishlist"]</a></li>
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <li class="nav-item">
+                                    <a class="btn btn-sm btn-admin-link" asp-area="Admin" asp-controller="Dashboard" asp-action="Index">
+                                        <i class="bi bi-speedometer2"></i> @Localizer["AdminPanel"]
+                                    </a>
+                                </li>
+                            }
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="bi bi-person-circle"></i> @User.Identity!.Name
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-end">
+                                    <li>
+                                        <form asp-controller="Account" asp-action="Logout" method="post">
+                                            <button type="submit" class="dropdown-item"><i class="bi bi-power"></i> @Localizer["Logout"]</button>
+                                        </form>
+                                    </li>
+                                </ul>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item"><a class="btn btn-outline-light btn-sm" asp-controller="Account" asp-action="Login">@Localizer["Login"]</a></li>
+                            <li class="nav-item"><a class="btn btn-warning btn-sm text-dark fw-bold" asp-controller="Account" asp-action="Register">@Localizer["Register"]</a></li>
+                        }
+                        <li class="nav-item">
+                            <a class="lang-toggle" title="@(isRtl ? "Switch to English" : "التبديل إلى العربية")"
+                               asp-controller="Language" asp-action="SetLanguage"
+                               asp-route-culture="@(isRtl ? "en-US" : "ar-EG")"
+                               asp-route-returnUrl="@(Context.Request.Path + Context.Request.QueryString)">
+                                <span class="@(!isRtl ? "active" : "")">EN</span>
+                                <span class="@(isRtl ? "active" : "")">AR</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        @if (TempData["Success"] is string success)
+        {
+            <div class="container mt-3">
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    @success
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            </div>
+        }
+        @if (TempData["Error"] is string error)
+        {
+            <div class="container mt-3">
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    @error
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            </div>
+        }
+        @RenderBody()
+    </main>
+
+    <footer class="site-footer mt-5">
+        <div class="container py-5">
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <h5 class="fw-bold"><i class="bi bi-compass"></i> رحلات</h5>
+                    <p class="text-white-50">@Localizer["Tagline"]</p>
+                </div>
+                <div class="col-md-4">
+                    <h6 class="fw-bold">@Localizer["QuickLinks"]</h6>
+                    <ul class="list-unstyled text-white-50">
+                        <li><a asp-controller="Destinations" asp-action="Index" class="footer-link">@Localizer["Destinations"]</a></li>
+                        <li><a asp-controller="Packages" asp-action="Index" class="footer-link">@Localizer["Packages"]</a></li>
+                        <li><a asp-controller="Hotels" asp-action="Index" class="footer-link">@Localizer["Hotels"]</a></li>
+                        <li><a asp-controller="Blog" asp-action="Index" class="footer-link">@Localizer["Blog"]</a></li>
+                        <li><a asp-controller="Contact" asp-action="Index" class="footer-link">@Localizer["Contact"]</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h6 class="fw-bold">@Localizer["ContactUs"]</h6>
+                    <p class="text-white-50 mb-1"><i class="bi bi-telephone"></i> 19XXX</p>
+                    <p class="text-white-50"><i class="bi bi-envelope"></i> info@example.com</p>
+                </div>
+            </div>
+            <hr class="border-secondary">
+            <p class="text-center text-white-50 mb-0">&copy; @DateTime.Now.Year رحلات. @Localizer["AllRightsReserved"]</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,18 @@
+## .NET build output
+bin/
+obj/
+
+## User-specific
+*.user
+*.suo
+.vs/
+
+## Secrets (never commit these)
+appsettings.Production.json
+appsettings.*.local.json
+*.pfx
+.env
+
+## Uploaded content
+Travel.Web/wwwroot/uploads/*
+!Travel.Web/wwwroot/uploads/.gitkeep

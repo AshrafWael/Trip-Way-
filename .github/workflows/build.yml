@@ -1,0 +1,56 @@
+name: Build & Test
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Restore
+        run: dotnet restore Travel.sln
+
+      - name: Build
+        run: dotnet build Travel.sln --no-restore --configuration Release
+
+      - name: Test
+        run: dotnet test Travel.Tests/Travel.Tests.csproj --no-build --configuration Release --logger "trx;LogFileName=test-results.trx"
+
+      - name: Publish test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results
+          path: Travel.Tests/TestResults/test-results.trx
+
+  docker-build:
+    runs-on: ubuntu-latest
+    needs: build-and-test
+    if: github.event_name == 'push'
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build Travel.API image
+        run: docker build -f Travel.API/Dockerfile -t travel-api:${{ github.sha }} .
+
+      - name: Build Travel.Web image
+        run: docker build -f Travel.Web/Dockerfile -t travel-web:${{ github.sha }} .
+
+      # Pushing to a registry (Docker Hub, ACR, ECR, GHCR) is deliberately
+      # left out -- it needs registry credentials as repo secrets, which
+      # depend on where you're actually deploying. Add a `docker push`
+      # step here once that's decided.

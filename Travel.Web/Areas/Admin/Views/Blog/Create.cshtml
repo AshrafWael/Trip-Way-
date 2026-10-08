@@ -1,0 +1,66 @@
+@model CreateBlogPostDto
+@{
+    ViewData["Title"] = Localizer["BlogNew"];
+}
+
+<div class="stat-card" style="max-width: 800px;">
+    <div asp-validation-summary="ModelOnly" class="alert alert-danger d-none-empty"></div>
+    <form asp-action="Create" method="post" enctype="multipart/form-data">
+        <div class="row g-3">
+            <div class="col-md-6">
+                <label asp-for="Title" class="form-label fw-bold"></label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger small"></span>
+            </div>
+            <div class="col-md-6">
+                <label asp-for="ArabicTitle" class="form-label fw-bold"></label>
+                <input asp-for="ArabicTitle" class="form-control" />
+                <span asp-validation-for="ArabicTitle" class="text-danger small"></span>
+            </div>
+            <div class="col-md-6">
+                <label asp-for="Subtitle" class="form-label fw-bold"></label>
+                <input asp-for="Subtitle" class="form-control" />
+            </div>
+            <div class="col-md-6">
+                <label asp-for="ArabicSubtitle" class="form-label fw-bold"></label>
+                <input asp-for="ArabicSubtitle" class="form-control" />
+            </div>
+            <div class="col-12">
+                <label asp-for="Content" class="form-label fw-bold"></label>
+                <textarea asp-for="Content" class="form-control" rows="4"></textarea>
+            </div>
+            <div class="col-12">
+                <label asp-for="ArabicContent" class="form-label fw-bold"></label>
+                <textarea asp-for="ArabicContent" class="form-control" rows="4"></textarea>
+            </div>
+            <div class="col-12">
+                <label class="form-label fw-bold">@Localizer["ChooseImage"]</label>
+                <input type="file" name="imageFile" accept="image/*" class="form-control" />
+            </div>
+            <div class="col-12">
+                <label asp-for="ImageUrl" class="form-label fw-bold"></label>
+                <input asp-for="ImageUrl" class="form-control" placeholder="https://..." />
+                <span class="text-muted small">@Localizer["ReplaceHint"]</span>
+            </div>
+            <div class="col-12">
+                <label class="form-label fw-bold">@Localizer["ChooseImages"]</label>
+                <input type="file" name="galleryFiles" accept="image/*" multiple class="form-control" />
+            </div>
+            <div class="col-12">
+                <label class="form-label fw-bold">@Localizer["GalleryImages"]</label>
+                <textarea name="imageUrlsRaw" class="form-control" rows="3" placeholder="https://...&#10;https://..."></textarea>
+                <span class="text-muted small">@Localizer["GalleryAddHint"]</span>
+            </div>
+            <div class="col-12 form-check">
+                <input asp-for="IsPublished" class="form-check-input" />
+                <label asp-for="IsPublished" class="form-check-label"></label>
+            </div>
+        </div>
+        <div class="mt-4">
+            <button type="submit" class="btn btn-brand">@Localizer["Save"]</button>
+            <a asp-action="Index" class="btn btn-outline-secondary">@Localizer["Cancel"]</a>
+        </div>
+    </form>
+</div>
+
+@section Scripts { <partial name="_ValidationScriptsPartial" /> }
